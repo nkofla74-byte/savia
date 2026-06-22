@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savia — Identidad Visual Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafaf8;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1b5e3f;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+            font-weight: 400;
+        }
+
+        section {
+            margin-bottom: 100px;
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1b5e3f;
+            border-bottom: 3px solid #1b5e3f;
+            padding-bottom: 15px;
+        }
+
+        /* LOGO SECTION */
+        .logo-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-box.light {
+            background: #fafaf8;
+            border: 2px solid #e8e8e8;
+        }
+
+        .logo-box.dark {
+            background: #1a1a1a;
+        }
+
+        .logo-box.green {
+            background: #1b5e3f;
+        }
+
+        .logo-svg {
+            width: 120px;
+            height: 120px;
+        }
+
+        .logo-description {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* COLOR PALETTE */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .color-card {
+            text-align: center;
+        }
+
+        .color-sample {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid #e8e8e8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .color-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+
+        .color-hex {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .color-use {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* TYPOGRAPHY */
+        .type-sample {
+            margin-bottom: 40px;
+        }
+
+        .type-sample h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .display-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .body-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #333;
+            max-width: 500px;
+        }
+
+        /* MOCKUPS */
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .mockup {
+            text-align: center;
+        }
+
+        .mockup-image {
+            width: 100%;
+            height: 280px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #999;
+            border: 2px dashed #ddd;
+        }
+
+        .mockup-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .mockup-desc {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* NARRATIVE */
+        .narrative {
+            background: linear-gradient(135deg, #1b5e3f 0%, #2a7a52 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .narrative h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #f5f1eb;
+        }
+
+        .narrative p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.95);
+            max-width: 700px;
+        }
+
+        /* GUIDELINES */
+        .guideline {
+            background: #f9f9f7;
+            padding: 25px;
+            border-left: 4px solid #1b5e3f;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .guideline strong {
+            color: #1b5e3f;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* PRICE TABLE */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        .price-table th {
+            background: #f5f1eb;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            color: #1a1a1a;
+            border-bottom: 2px solid #1b5e3f;
+        }
+
+        .price-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .price-table tr:hover {
+            background: #fafaf8;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 14px;
+            border-top: 2px solid #e8e8e8;
+            margin-top: 60px;
+        }
+
+        .download-note {
+            background: #e8f5e9;
+            border: 2px solid #1b5e3f;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            color: #1b5e3f;
+            font-size: 14px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            section {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <h1>Savia</h1>
+        <p class="subtitle">Identidad Visual Completa • Aceites Botánicos Premium</p>
+
+        <!-- LOGO SECTION -->
+        <section>
+            <h2>Logo</h2>
+            <div class="logo-display">
+                <div>
+                    <div class="logo-box light">
+                        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Gota principal -->
+                            <path d="M60 20 C 50 35, 40 50, 40 65 C 40 85, 48 100, 60 100 C 72 100, 80 85, 80 65 C 80 50, 70 35, 60 20 Z" 
+                                  fill="#1b5e3f" stroke="#1b5e3f" stroke-width="1.5"/>
+                            <!-- Línea vertical (tallo de la S) -->
+                            <path d="M 58 35 Q 62 45, 58 60" 
+                                  stroke="#f5f1eb" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            <!-- Punto en el corazón (brillo) -->
+                            <circle cx="60" cy="50" r="3" fill="#f5f1eb" opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="logo-description">
+                        <strong>Fondo claro</strong><br>
+                        Uso principal
+                    </div>
+                </div>
+
+                <div>
+                    <div class="logo-box dark">
+                        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 20 C 50 35, 40 50, 40 65 C 40 85, 48 100, 60 100 C 72 100, 80 85, 80 65 C 80 50, 70 35, 60 20 Z" 
+                                  fill="#f5f1eb" stroke="#f5f1eb" stroke-width="1.5"/>
+                            <path d="M 58 35 Q 62 45, 58 60" 
+                                  stroke="#1b5e3f" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            <circle cx="60" cy="50" r="3" fill="#1b5e3f" opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="logo-description">
+                        <strong>Fondo oscuro</strong><br>
+                        Redes, packaging
+                    </div>
+                </div>
+
+                <div>
+                    <div class="logo-box green">
+                        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 20 C 50 35, 40 50, 40 65 C 40 85, 48 100, 60 100 C 72 100, 80 85, 80 65 C 80 50, 70 35, 60 20 Z" 
+                                  fill="#c9a961" stroke="#c9a961" stroke-width="1.5"/>
+                            <path d="M 58 35 Q 62 45, 58 60" 
+                                  stroke="#1b5e3f" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            <circle cx="60" cy="50" r="3" fill="#1b5e3f" opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="logo-description">
+                        <strong>Dorado sobre verde</strong><br>
+                        Sellos, certificaciones
+                    </div>
+                </div>
+            </div>
+
+            <div class="guideline">
+                <strong>📏 Especificaciones del Logo</strong>
+                Síntesis minimalista de una gota (savia = vida) que contiene una "S" geométrica. Funciona perfecto en botellas pequeñas (30mm) hasta grandes (300mm+). Monocromático para máxima claridad. Sin degradados, sin efectos 3D.
+            </div>
+        </section>
+
+        <!-- COLOR PALETTE -->
+        <section>
+            <h2>Paleta de Colores</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-sample" style="background: #1b5e3f;"></div>
+                    <div class="color-name">Verde Savia</div>
+                    <div class="color-hex">#1B5E3F</div>
+                    <div class="color-use">Logo, titulares, acentos principales. Transmite naturaleza, confianza, sofisticación.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-sample" style="background: #f5f1eb;"></div>
+                    <div class="color-name">Crema Premium</div>
+                    <div class="color-hex">#F5F1EB</div>
+                    <div class="color-use">Fondo principal, espacio negativo. Lujo minimalista, limpieza.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-sample" style="background: #c9a961;"></div>
+                    <div class="color-name">Oro Suave</div>
+                    <div class="color-hex">#C9A961</div>
+                    <div class="color-use">Acentos premium, detalles de lujo. Muy moderado, solo puntos específicos.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-sample" style="background: #1a1a1a;"></div>
+                    <div class="color-name">Negro</div>
+                    <div class="color-hex">#1A1A1A</div>
+                    <div class="color-use">Tipografía, cuerpo de texto. Profundo, no #000000 puro.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-sample" style="background: #ffffff; border: 2px solid #ccc;"></div>
+                    <div class="color-name">Blanco</div>
+                    <div class="color-hex">#FFFFFF</div>
+                    <div class="color-use">Contraste, tipografía sobre verdes, elementos flotantes.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-sample" style="background: #999999;"></div>
+                    <div class="color-name">Gris Neutral</div>
+                    <div class="color-hex">#999999</div>
+                    <div class="color-use">Textos secundarios, ayudas, baja prioridad visual.</div>
+                </div>
+            </div>
+
+            <div class="guideline">
+                <strong>🎨 Cómo usar la paleta</strong>
+                Verde es el protagonista (logo, titulares). Crema es el fondo respirable. Oro aparece solo en detalles (boorde etiquetas, pequeños acentos). Nunca todos los colores juntos — mantén espacios en blanco/crema.
+            </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section>
+            <h2>Tipografía</h2>
+            
+            <div class="type-sample">
+                <h3>Display (Titulares)</h3>
+                <div class="display-text">Savia</div>
+                <div style="font-size: 14px; color: #666;">
+                    <strong>Font:</strong> Inter Bold (700)<br>
+                    <strong>Sizes:</strong> 48px–72px para titulares<br>
+                    <strong>Weight:</strong> 700 (bold), nunca regular
+                </div>
+            </div>
+
+            <div class="type-sample">
+                <h3>Body (Textos principales)</h3>
+                <div class="body-text">
+                    Fórmulas científicas honestas que hacen exactamente lo que prometen, hechas en Bogotá, sin sobrepromesas de Instagram.
+                </div>
+                <div style="font-size: 14px; color: #666; margin-top: 15px;">
+                    <strong>Font:</strong> Inter Regular (400)<br>
+                    <strong>Size:</strong> 16px–18px<br>
+                    <strong>Weight:</strong> 400 (regular)<br>
+                    <strong>Line Height:</strong> 1.6 (espacioso, legible)
+                </div>
+            </div>
+
+            <div class="type-sample">
+                <h3>Small / Caption</h3>
+                <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: #666; line-height: 1.5;">
+                    Ingredientes, instrucciones de uso, etiquetas de avisos
+                </div>
+                <div style="font-size: 14px; color: #666; margin-top: 15px;">
+                    <strong>Font:</strong> Inter Regular (400)<br>
+                    <strong>Size:</strong> 12px–13px<br>
+                    <strong>Weight:</strong> 400
+                </div>
+            </div>
+
+            <div class="guideline">
+                <strong>✍️ Guía de uso</strong>
+                Inter es moderna, neutra y legible — nada bohemio ni artesanal exagerado. Usa Bold solo para titulares y énfasis. El espaciado es generoso — nunca aprietes el texto.
+            </div>
+        </section>
+
+        <!-- NARRATIVE / BRAND VOICE -->
+        <section>
+            <h2>Narrativa de Marca</h2>
+            <div class="narrative">
+                <h3>El mensaje que vende</h3>
+                <p><strong>"Savia es el ritual diario que se permite quien entiende que el cuidado propio no es lujo, es inversión."</strong></p>
+                <p style="margin-top: 20px; font-size: 16px;">
+                    Savia no promete milagros. Promete mejora consistente. Cada fórmula tiene un propósito científico real. Cada ingrediente, una razón. Aquí la honestidad no es marketing, es la base de todo.
+                </p>
+            </div>
+
+            <div class="guideline">
+                <strong>🗣️ Tono de Voz</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; color: #333;">
+                    <li>Sofisticada pero accesible</li>
+                    <li>Científica pero sensorial</li>
+                    <li>Bogotana con mirada global</li>
+                    <li>Callada (vende por calidad, no por ruido)</li>
+                    <li>Honesta (transparencia total)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- APLICACIONES -->
+        <section>
+            <h2>Aplicaciones — Cómo se ve en la realidad</h2>
+
+            <h3 style="font-size: 22px; margin: 40px 0 20px 0; color: #1a1a1a;">En Etiquetas de Botellas</h3>
+            <div style="background: #f5f1eb; padding: 40px; border-radius: 8px; margin-bottom: 40px; text-align: center;">
+                <div style="max-width: 220px; margin: 0 auto;">
+                    <div style="background: white; padding: 20px; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <!-- Logo -->
+                        <svg style="width: 60px; height: 60px; margin: 0 auto 15px;" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 20 C 50 35, 40 50, 40 65 C 40 85, 48 100, 60 100 C 72 100, 80 85, 80 65 C 80 50, 70 35, 60 20 Z" 
+                                  fill="#1b5e3f" stroke="#1b5e3f" stroke-width="1.5"/>
+                            <path d="M 58 35 Q 62 45, 58 60" 
+                                  stroke="#f5f1eb" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                        <!-- Nombre -->
+                        <h4 style="font-size: 20px; font-weight: 700; color: #1b5e3f; margin-bottom: 5px; letter-spacing: 1px;">SAVIA</h4>
+                        <!-- Producto -->
+                        <p style="font-size: 14px; color: #666; margin-bottom: 15px; font-weight: 500;">Calma • Relajante</p>
+                        <!-- Descripción pequeña -->
+                        <p style="font-size: 11px; color: #999; line-height: 1.5; margin-bottom: 15px;">Aceite corporal para masaje. Fórmula honesta con lavanda esencial.</p>
+                        <!-- Línea divisoria -->
+                        <div style="height: 1px; background: #ddd; margin: 15px 0;"></div>
+                        <!-- Info pequeña -->
+                        <p style="font-size: 10px; color: #999;">100 ml • Ingredientes: almendra, coco, lavanda, vit. E • Hecho en Bogotá</p>
+                    </div>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 20px;">Etiqueta minimalista. Logo arriba. Información clara, sin ruido.</p>
+            </div>
+
+            <h3 style="font-size: 22px; margin: 40px 0 20px 0; color: #1a1a1a;">En Redes Sociales</h3>
+            <div class="mockup-grid">
+                <div class="mockup">
+                    <div class="mockup-image" style="background: linear-gradient(135deg, #1b5e3f 0%, #2a7a52 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px;">
+                        📸
+                    </div>
+                    <div class="mockup-title">Foto de producto</div>
+                    <div class="mockup-desc">Botella sobre fondo crema, luz natural. Simple, elegante.</div>
+                </div>
+
+                <div class="mockup">
+                    <div class="mockup-image" style="background: white; border: 2px solid #1b5e3f; display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center;">
+                            <svg style="width: 80px; height: 80px; margin: 0 auto;" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M60 20 C 50 35, 40 50, 40 65 C 40 85, 48 100, 60 100 C 72 100, 80 85, 80 65 C 80 50, 70 35, 60 20 Z" 
+                                      fill="#1b5e3f"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mockup-title">Stories con logo</div>
+                    <div class="mockup-desc">Fondo blanco + logo. Atrapar atención en desplazamiento.</div>
+                </div>
+
+                <div class="mockup">
+                    <div class="mockup-image" style="background: #f5f1eb; display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center; padding: 20px;">
+                            <p style="font-size: 18px; font-weight: 700; color: #1b5e3f; margin-bottom: 10px;">Calma</p>
+                            <p style="font-size: 12px; color: #666; line-height: 1.4;">Lavanda esencial para<br>relajación profunda</p>
+                        </div>
+                    </div>
+                    <div class="mockup-title">Carrusel de productos</div>
+                    <div class="mockup-desc">Fondo crema, nombre + descripción corta.</div>
+                </div>
+            </div>
+
+            <div class="guideline">
+                <strong>📱 En redes</strong>
+                No hagas fotos fake con filtros. Usa luz natural, botellas reales, manos usando el producto. El lujo es honestidad visual, no artificio.
+            </div>
+        </section>
+
+        <!-- PRICING & PRODUCTS -->
+        <section>
+            <h2>Línea de Productos & Precios</h2>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Presentación</th>
+                        <th>Costo Real</th>
+                        <th>Precio Venta</th>
+                        <th>Margen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fffbf0;">
+                        <td><strong>Calma</strong> (Relajante)</td>
+                        <td>100 ml</td>
+                        <td>$4.071</td>
+                        <td><strong>$13.900</strong></td>
+                        <td>71%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Despierta</strong> (Café)</td>
+                        <td>100 ml</td>
+                        <td>$3.942</td>
+                        <td><strong>$13.900</strong></td>
+                        <td>72%</td>
+                    </tr>
+                    <tr style="background: #fffbf0;">
+                        <td><strong>Cacao</strong> (Nutritivo)</td>
+                        <td>100 ml</td>
+                        <td>$3.942</td>
+                        <td><strong>$13.900</strong></td>
+                        <td>72%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frescor</strong> (Menta)</td>
+                        <td>100 ml</td>
+                        <td>$3.942</td>
+                        <td><strong>$13.900</strong></td>
+                        <td>72%</td>
+                    </tr>
+                    <tr style="background: #fffbf0;">
+                        <td><strong>Raíz</strong> (Capilar)</td>
+                        <td>100 ml</td>
+                        <td>$4.102</td>
+                        <td><strong>$13.900</strong></td>
+                        <td>71%</td>
+                    </tr>
+                    <tr style="background: linear-gradient(90deg, #e8f5e9 0%, #f5f1eb 100%); font-weight: 700;">
+                        <td>Luz (Sérum Facial)</td>
+                        <td>30 ml</td>
+                        <td>$3.600</td>
+                        <td style="color: #1b5e3f;"><strong>$21.900</strong></td>
+                        <td style="color: #1b5e3f;">83%</td>
+                    </tr>
+                    <tr style="background: #f0f8f5;">
+                        <td>Rocío de Rosas (Tónico)</td>
+                        <td>200 ml</td>
+                        <td>$7.300</td>
+                        <td><strong>$13.900</strong></td>
+                        <td>47%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="guideline">
+                <strong>💰 Estrategia de precios</strong>
+                Corporales a $13.900 (uniforme, sin confusión). Facial a $21.900 (premium, diferenciado). Rocío de Rosas es introductorio — menor margen pero construye lealtad. Sin descuentos, sin "ofertas" — el precio es el precio. Confianza en el valor.
+            </div>
+        </section>
+
+        <!-- GUÍA DE USO -->
+        <section>
+            <h2>Guía de Uso — Do's & Don'ts</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h4 style="color: #1b5e3f; font-size: 18px; margin-bottom: 15px; font-weight: 700;">✅ CORRECTO</h4>
+                    <div class="guideline" style="border-left-color: #1b5e3f; background: #e8f5e9;">
+                        Logo en verde profundo sobre blanco/crema
+                    </div>
+                    <div class="guideline" style="border-left-color: #1b5e3f; background: #e8f5e9;">
+                        Oro solo en detalles pequeños (bordes, puntos)
+                    </div>
+                    <div class="guideline" style="border-left-color: #1b5e3f; background: #e8f5e9;">
+                        Mucho espacio en blanco (respira la marca)
+                    </div>
+                    <div class="guideline" style="border-left-color: #1b5e3f; background: #e8f5e9;">
+                        Fotografía clara, luz natural, honesta
+                    </div>
+                    <div class="guideline" style="border-left-color: #1b5e3f; background: #e8f5e9;">
+                        Tipografía Inter, limpia, moderna
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: #c74e4e; font-size: 18px; margin-bottom: 15px; font-weight: 700;">❌ EVITAR</h4>
+                    <div class="guideline" style="border-left-color: #c74e4e; background: #ffebee;">
+                        Logo en colores raros o gradientes
+                    </div>
+                    <div class="guideline" style="border-left-color: #c74e4e; background: #ffebee;">
+                        Oro/dorado exagerado por todos lados
+                    </div>
+                    <div class="guideline" style="border-left-color: #c74e4e; background: #ffebee;">
+                        Diseño apretado, sin respiros visuales
+                    </div>
+                    <div class="guideline" style="border-left-color: #c74e4e; background: #ffebee;">
+                        Filtros, saturación fake, efectos 3D
+                    </div>
+                    <div class="guideline" style="border-left-color: #c74e4e; background: #ffebee;">
+                        Tipografía script, bohemia, artesanal
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CÓMO EMPEZAR ESTA SEMANA -->
+        <section>
+            <h2>Cómo Implementar Esta Semana</h2>
+
+            <div class="download-note">
+                ℹ️ <strong>Importante:</strong> Descarga los archivos adjuntos (logo SVG, paleta de colores, mocks). Aquí tienes el blueprint visual — usa estos valores exactos en cada aplicación.
+            </div>
+
+            <div style="background: #f5f1eb; padding: 30px; border-radius: 8px; margin-bottom: 20px;">
+                <h4 style="color: #1b5e3f; font-size: 16px; margin-bottom: 15px; font-weight: 700;">Etapa 1: Mañana (antes de repartir muestras)</h4>
+                <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                    <li>✅ Etiqueta para las botellas: imprime con logo, nombre producto, ingredientes (en blanco + verde)</li>
+                    <li>✅ Crea carpeta en Google Drive con logos (SVG + PNG), colores exactos, paleta PDF</li>
+                    <li>✅ Usa el logo en una foto de botella para WhatsApp/IG (ver mockups arriba)</li>
+                </ul>
+            </div>
+
+            <div style="background: #f5f1eb; padding: 30px; border-radius: 8px; margin-bottom: 20px;">
+                <h4 style="color: #1b5e3f; font-size: 16px; margin-bottom: 15px; font-weight: 700;">Etapa 2: Próximos 3 días (muestras + primeras ventas)</h4>
+                <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                    <li>✅ Tarjeta pequeña con logo + QR a WhatsApp (va dentro de cajas de muestra)</li>
+                    <li>✅ Foto limpia de botella (fondo blanco/crema, luz natural) para redes</li>
+                    <li>✅ Bio de Instagram: "Savia. Aceites botánicos. Fórmulas honestas." (máximo 4 líneas)</li>
+                </ul>
+            </div>
+
+            <div style="background: #f5f1eb; padding: 30px; border-radius: 8px;">
+                <h4 style="color: #1b5e3f; font-size: 16px; margin-bottom: 15px; font-weight: 700;">Etapa 3: Primera semana (presencia digital)</h4>
+                <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                    <li>✅ Stories en IG: botella + logo + texto simple ("Savia llega a Bogotá")</li>
+                    <li>✅ Primer post: foto bonita + narrativa corta (máximo 200 palabras, la que leíste arriba)</li>
+                    <li>✅ Link a WhatsApp en bio (es tu canal de venta principal)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Savia Brand Identity</strong><br>
+            Bogotá, Colombia • Junio 2026<br>
+            Todos los valores de color y tipografía son exactos — usa estos números en cada aplicación.</p>
+        </div>
+    </div>
+</body>
+</html>
