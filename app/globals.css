@@ -8,13 +8,13 @@
    The actual color values are runtime CSS variables (space-separated RGB triplets) defined per data-theme below,
    so utilities resolve to the active theme and support alpha modifiers via rgb(var(--x) / <alpha-value>). */
 @theme inline {
-  --color-bg: rgb(var(--color-bg-rgb) / <alpha-value>);
-  --color-surface: rgb(var(--color-surface-rgb) / <alpha-value>);
-  --color-primary: rgb(var(--color-primary-rgb) / <alpha-value>);
-  --color-accent: rgb(var(--color-accent-rgb) / <alpha-value>);
-  --color-accent-2: rgb(var(--color-accent-2-rgb) / <alpha-value>);
-  --color-ink: rgb(var(--color-ink-rgb) / <alpha-value>);
-  --color-muted: rgb(var(--color-muted-rgb) / <alpha-value>);
+  --color-bg: rgb(var(--color-bg-rgb));
+  --color-surface: rgb(var(--color-surface-rgb));
+  --color-primary: rgb(var(--color-primary-rgb));
+  --color-accent: rgb(var(--color-accent-rgb));
+  --color-accent-2: rgb(var(--color-accent-2-rgb));
+  --color-ink: rgb(var(--color-ink-rgb));
+  --color-muted: rgb(var(--color-muted-rgb));
   --font-display: var(--font-display-stack);
   --font-body: var(--font-body-stack);
   --font-heading: var(--font-sans);
