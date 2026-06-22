@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Map theme tokens -> Tailwind v4 utilities (bg-bg, text-ink, text-primary, bg-accent, font-display, font-body, ...).
+   The actual color values are runtime CSS variables (space-separated RGB triplets) defined per data-theme below,
+   so utilities resolve to the active theme and support alpha modifiers via rgb(var(--x) / <alpha-value>). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: rgb(var(--color-bg-rgb) / <alpha-value>);
+  --color-surface: rgb(var(--color-surface-rgb) / <alpha-value>);
+  --color-primary: rgb(var(--color-primary-rgb) / <alpha-value>);
+  --color-accent: rgb(var(--color-accent-rgb) / <alpha-value>);
+  --color-accent-2: rgb(var(--color-accent-2-rgb) / <alpha-value>);
+  --color-ink: rgb(var(--color-ink-rgb) / <alpha-value>);
+  --color-muted: rgb(var(--color-muted-rgb) / <alpha-value>);
+  --font-display: var(--font-display-stack);
+  --font-body: var(--font-body-stack);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  /* Tema Crema (claro, por defecto, marca oficial) */
+  :root, [data-theme="crema"] {
+    --color-bg-rgb: 245 241 235;       /* #F5F1EB */
+    --color-surface-rgb: 255 255 255;  /* #FFFFFF */
+    --color-primary-rgb: 27 94 63;     /* #1B5E3F */
+    --color-accent-rgb: 201 169 97;    /* #C9A961 */
+    --color-accent-2-rgb: 201 169 97;
+    --color-ink-rgb: 26 26 26;         /* #1A1A1A */
+    --color-muted-rgb: 153 153 153;    /* #999999 */
+    --font-display-stack: var(--font-inter), serif;
+    --font-body-stack: var(--font-inter), system-ui, sans-serif;
   }
-}
+  /* Tema Botica (oscuro, dramático) */
+  [data-theme="botica"] {
+    --color-bg-rgb: 29 42 32;          /* #1d2a20 */
+    --color-surface-rgb: 39 57 43;     /* #27392b */
+    --color-primary-rgb: 143 161 131;  /* #8fa183 */
+    --color-accent-rgb: 207 154 60;    /* #cf9a3c */
+    --color-accent-2-rgb: 230 184 96;  /* #e6b860 */
+    --color-ink-rgb: 244 239 227;      /* #f4efe3 */
+    --color-muted-rgb: 143 161 131;    /* #8fa183 */
+    --font-display-stack: var(--font-fraunces), serif;
+    --font-body-stack: var(--font-hanken), system-ui, sans-serif;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
+  body {
+    background-color: rgb(var(--color-bg-rgb));
+    color: rgb(var(--color-ink-rgb));
+    font-family: var(--font-body-stack);
+    transition: background-color 400ms ease, color 400ms ease;
+  }
+  h1, h2, h3, .font-display { font-family: var(--font-display-stack); }
+
+  @media (prefers-reduced-motion: reduce) {
+    body { transition: none; }
+  }
 }
