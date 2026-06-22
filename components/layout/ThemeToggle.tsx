@@ -1,11 +1,13 @@
 "use client";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // Avoids hydration mismatch: false on the server, true once mounted on the client.
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   if (!mounted) return <div className="h-9 w-9" aria-hidden />;
   const isBotica = theme === "botica";
   return (
