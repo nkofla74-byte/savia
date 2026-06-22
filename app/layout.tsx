@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Hanken_Grotesk } from "next/font/google";
+import { Inter, Fraunces, Hanken_Grotesk, Geist } from "next/font/google";
 import "./globals.css";
 
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", display: "swap" });
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning className={`${inter.variable} ${fraunces.variable} ${hanken.variable}`}>
+    <html lang="es" suppressHydrationWarning className={`${inter.variable} ${fraunces.variable} ${hanken.variable} ${geist.variable}`}>
       <body>{children}</body>
     </html>
   );
