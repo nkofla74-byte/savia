@@ -14,6 +14,8 @@ export type Product = {
   modoDeUso: string;
   advertencia: string;
   ilustracion: "lavanda" | "cafe" | "cacao" | "menta" | "uva" | "rosa";
+  /** Ruta a la foto del producto en /public (ej. "/products/calma.png"). Si falta, se usa la ilustración SVG. */
+  imagen?: string;
   destacado: boolean;
   edicionEspecial?: boolean;
 };
@@ -29,7 +31,7 @@ export const products: Product[] = [
     porQueFunciona: "La lavanda aporta un aroma asociado a la sensación de calma; la base de aceites vegetales suaviza y nutre la piel.",
     ingredientes: ["Aceite de almendra dulce", "Aceite de coco fraccionado", "Aceite esencial de lavanda", "Vitamina E"],
     modoDeUso: "Aplica de noche, después del baño, con masajes suaves en brazos, pecho y cuello.",
-    advertencia: ADVERTENCIA, ilustracion: "lavanda", destacado: true,
+    advertencia: ADVERTENCIA, ilustracion: "lavanda", imagen: "/products/calma.png", destacado: true,
   },
   {
     slug: "despierta", nombre: "Despierta", linea: "Café Energizante",
@@ -38,7 +40,7 @@ export const products: Product[] = [
     porQueFunciona: "La cafeína se asocia a la sensación de ligereza; la fórmula deja la piel suave con un aroma estimulante.",
     ingredientes: ["Aceite de girasol", "Extracto de café", "Aceite esencial cítrico", "Vitamina E"],
     modoDeUso: "Masajea en piernas y zonas a tonificar, con movimientos ascendentes.",
-    advertencia: ADVERTENCIA, ilustracion: "cafe", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "cafe", imagen: "/products/despierta.png", destacado: false,
   },
   {
     slug: "cacao", nombre: "Cacao", linea: "Nutritivo",
@@ -56,7 +58,7 @@ export const products: Product[] = [
     porQueFunciona: "La menta aporta una sensación refrescante; la base ligera se absorbe rápido sin sensación grasa.",
     ingredientes: ["Aceite de girasol", "Aceite esencial de menta", "Vitamina E"],
     modoDeUso: "Aplica en cuerpo tras el baño para una sensación fresca.",
-    advertencia: ADVERTENCIA, ilustracion: "menta", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "menta", imagen: "/products/frescor.jpeg", destacado: false,
   },
   {
     slug: "raiz", nombre: "Raíz", linea: "Capilar Acondicionador",

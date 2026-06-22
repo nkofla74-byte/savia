@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProduct, products } from "@/content/products";
 import { Botanical } from "@/illustrations/Botanical";
@@ -16,8 +17,12 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
   return (
     <section className="grid gap-12 py-16 md:grid-cols-2">
       <div className="md:sticky md:top-28 md:self-start">
-        <div className="grid aspect-square place-items-center rounded-3xl border border-primary/10 bg-surface/40">
-          <Botanical name={product.ilustracion} className="h-40 w-40 text-primary" />
+        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-3xl border border-primary/10 bg-surface/40">
+          {product.imagen ? (
+            <Image src={product.imagen} alt={product.nombre} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />
+          ) : (
+            <Botanical name={product.ilustracion} className="h-40 w-40 text-primary" />
+          )}
         </div>
       </div>
       <div>
