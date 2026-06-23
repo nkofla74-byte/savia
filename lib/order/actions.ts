@@ -19,26 +19,26 @@ export async function crearPedido(
   const subtotal = items.reduce((s, i) => s + i.precioCOP * i.qty, 0);
   const supabase = getSupabaseServer();
 
-  const { data, error } = await supabase
-    .from("pedidos")
-    .insert({
-      referencia,
-      nombre: parsed.data.nombre,
-      telefono: parsed.data.telefono,
-      email: parsed.data.email || null,
-      departamento: parsed.data.departamento,
-      ciudad: parsed.data.ciudad,
-      direccion: parsed.data.direccion,
-      notas: parsed.data.notas || null,
-      subtotal_cop: subtotal,
-    })
-    .select("id")
-    .single();
+  // Generamos el id en el servidor para no necesitar SELECT tras el insert
+  // (RLS sólo permite INSERT al rol anónimo, no lectura).
+  const pedidoId = crypto.randomUUID();
+  const { error } = await supabase.from("pedidos").insert({
+    id: pedidoId,
+    referencia,
+    nombre: parsed.data.nombre,
+    telefono: parsed.data.telefono,
+    email: parsed.data.email || null,
+    departamento: parsed.data.departamento,
+    ciudad: parsed.data.ciudad,
+    direccion: parsed.data.direccion,
+    notas: parsed.data.notas || null,
+    subtotal_cop: subtotal,
+  });
 
-  if (error || !data) return { ok: false, error: "No se pudo crear el pedido. Intenta de nuevo." };
+  if (error) return { ok: false, error: "No se pudo crear el pedido. Intenta de nuevo." };
 
   const rows = items.map((i) => ({
-    pedido_id: data.id as string,
+    pedido_id: pedidoId,
     slug: i.slug,
     nombre: i.nombre,
     precio_cop: i.precioCOP,
