@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { LenisProvider } from "@/lib/motion/LenisProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/whatsAppButton/WhatsAppButton";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
@@ -24,15 +25,21 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning className={`${inter.variable} ${fraunces.variable} ${hanken.variable}`}>
-      <body>
-        <ThemeProvider>
-          <LenisProvider>
-            <Header />
-            <main className="mx-auto max-w-6xl px-5">{children}</main>
-            <Footer />
-          </LenisProvider>
-        </ThemeProvider>
-      </body>
+   <body>
+  <ThemeProvider>
+    <LenisProvider>
+      <Header />
+
+      <main className="mx-auto max-w-6xl px-5">
+        {children}
+      </main>
+
+      <Footer />
+
+      <WhatsAppButton />
+    </LenisProvider>
+  </ThemeProvider>
+</body>
     </html>
   );
 }
