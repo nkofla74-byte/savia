@@ -13,9 +13,9 @@ export function CartLine({ item }: { item: CartItem }) {
         <p className="text-sm text-muted">{formatCOP(item.precioCOP)}</p>
       </div>
       <div className="flex items-center gap-2">
-        <button type="button" aria-label="Quitar uno" onClick={() => setQty(item.slug, item.qty - 1)} className="h-7 w-7 rounded-full border border-primary/30">−</button>
+        <button type="button" aria-label="Quitar uno" onClick={() => setQty(item.slug, item.qty - 1)} className="grid h-9 w-9 place-items-center rounded-full border border-primary/30 transition-colors hover:bg-primary/10">−</button>
         <span className="w-6 text-center">{item.qty}</span>
-        <button type="button" aria-label="Agregar uno" onClick={() => setQty(item.slug, item.qty + 1)} className="h-7 w-7 rounded-full border border-primary/30">+</button>
+        <button type="button" aria-label="Agregar uno" onClick={() => setQty(item.slug, item.qty + 1)} className="grid h-9 w-9 place-items-center rounded-full border border-primary/30 transition-colors hover:bg-primary/10">+</button>
       </div>
     </motion.div>
   );

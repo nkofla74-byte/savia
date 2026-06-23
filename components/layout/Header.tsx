@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/illustrations/Logo";
 import { ThemeToggle } from "./ThemeToggle";
+import { MobileNav } from "./MobileNav";
 import { CartButton } from "@/components/cart/CartButton";
 
 const nav = [
@@ -25,6 +26,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <CartButton />
+          <MobileNav />
         </div>
       </div>
     </header>

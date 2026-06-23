@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
@@ -13,6 +13,12 @@ const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", d
 export const metadata: Metadata = {
   title: "Savia — Aceites botánicos",
   description: "Aceites botánicos cosméticos con base científica. Bogotá. Fórmulas honestas.",
+};
+
+// Permite zoom del usuario (accesibilidad): no se fija maximumScale.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
