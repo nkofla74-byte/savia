@@ -67,7 +67,7 @@ export const products: Product[] = [
     porQueFunciona: "Los aceites vegetales ayudan a sellar la cutícula del cabello, aportando brillo y suavidad.",
     ingredientes: ["Aceite de coco", "Aceite de argán", "Aceite esencial herbal"],
     modoDeUso: "Aplica una pequeña cantidad en puntas y medios; no enjuagar.",
-    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/raiz.jpeg", destacado: false,
   },
   {
     slug: "luz", nombre: "Luz", linea: "Sérum Facial",
@@ -76,7 +76,7 @@ export const products: Product[] = [
     porQueFunciona: "El argán y la semilla de uva ayudan a mejorar la apariencia de la piel y a reforzar su sensación de suavidad.",
     ingredientes: ["Aceite de argán", "Aceite de semilla de uva", "Vitamina E"],
     modoDeUso: "Aplica unas gotas en el rostro por la noche, sobre piel limpia.",
-    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: true,
+    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/luz.jpeg", destacado: true,
   },
   {
     slug: "rocio-de-rosas", nombre: "Rocío de Rosas", linea: "Tónico facial",
@@ -86,7 +86,7 @@ export const products: Product[] = [
     ingredientes: ["Agua de rosas", "Conservante cosmético apto"],
     modoDeUso: "Aplica con algodón sobre el rostro limpio. Mantener refrigerado.",
     advertencia: ADVERTENCIA + " Producto fresco de vida útil corta; conservar en frío.",
-    ilustracion: "rosa", destacado: false, edicionEspecial: true,
+    ilustracion: "rosa", imagen: "/products/agua_de_rosas.jpeg", destacado: false, edicionEspecial: true,
   },
 ];
 
