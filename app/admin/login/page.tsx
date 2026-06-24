@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
 export default function AdminLoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -15,45 +15,48 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError(null);
     const supabase = createSupabaseBrowserClient();
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${SITE}/admin/auth/callback` },
-    });
-    setLoading(false);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setError("No se pudo enviar el enlace. Verifica el correo.");
+      setLoading(false);
+      setError("Credenciales inválidas. Verifica tu correo y contraseña.");
       return;
     }
-    setSent(true);
+    router.push("/admin");
+    router.refresh();
   };
 
   return (
     <section className="mx-auto max-w-sm py-24">
       <h1 className="font-display text-3xl font-bold text-primary">Panel Savia</h1>
-      {sent ? (
-        <p className="mt-6 rounded-xl border border-primary/10 bg-surface p-6 text-ink/80">
-          Te enviamos un enlace de acceso a <strong>{email}</strong>. Revisa tu correo.
-        </p>
-      ) : (
-        <form onSubmit={onSubmit} className="mt-6 space-y-4">
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="tu@correo.com"
-            className="w-full rounded-xl border border-primary/20 bg-surface px-4 py-3 text-ink outline-none focus:border-primary"
-          />
-          {error && <p className="text-sm text-accent">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-full bg-primary py-3 font-medium text-bg transition hover:opacity-90 disabled:opacity-60"
-          >
-            {loading ? "Enviando…" : "Enviar enlace de acceso"}
-          </button>
-        </form>
-      )}
+      <p className="mt-2 text-sm text-ink/70">Acceso restringido al equipo.</p>
+      <form onSubmit={onSubmit} className="mt-6 space-y-4">
+        <input
+          type="email"
+          required
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="tu@correo.com"
+          className="w-full rounded-xl border border-primary/20 bg-surface px-4 py-3 text-ink outline-none focus:border-primary"
+        />
+        <input
+          type="password"
+          required
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Contraseña"
+          className="w-full rounded-xl border border-primary/20 bg-surface px-4 py-3 text-ink outline-none focus:border-primary"
+        />
+        {error && <p className="text-sm text-accent">{error}</p>}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-full bg-primary py-3 font-medium text-bg transition hover:opacity-90 disabled:opacity-60"
+        >
+          {loading ? "Entrando…" : "Entrar"}
+        </button>
+      </form>
     </section>
   );
 }
