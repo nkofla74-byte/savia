@@ -83,6 +83,7 @@
 
   html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
   body {
+    overflow-x: clip; /* evita scroll horizontal por el hero full-bleed (w-screen); clip no rompe el sticky de BrandStory */
     background-color: rgb(var(--color-bg-rgb));
     color: rgb(var(--color-ink-rgb));
     font-family: var(--font-body-stack);
