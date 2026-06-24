@@ -7,8 +7,8 @@ alter table public.admins enable row level security;
 create policy "admin ve su propia fila" on public.admins
   for select to authenticated using (email = auth.jwt() ->> 'email');
 
--- correo del admin (PLACEHOLDER — reemplazar por el real)
-insert into public.admins (email) values ('CORREO_ADMIN_PLACEHOLDER')
+-- correo del admin inicial (idempotente; cambiar/añadir admins editando esta fila)
+insert into public.admins (email) values ('nkofla74@gmail.com')
   on conflict do nothing;
 
 create or replace function public.is_admin() returns boolean
