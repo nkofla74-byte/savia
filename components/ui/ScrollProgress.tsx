@@ -1,9 +1,12 @@
 "use client";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion/useReducedMotion";
 
 export function ScrollProgress() {
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  const springX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  const scaleX = reduced ? scrollYProgress : springX;
   return (
     <motion.div
       aria-hidden

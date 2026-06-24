@@ -13,7 +13,7 @@ export function SectionImage({ src, alt, sizes = "(max-width: 768px) 100vw, 50vw
       <div
         role="img"
         aria-label={alt}
-        className={`grid place-items-center bg-gradient-to-br from-primary/80 to-primary/40 ${className ?? ""}`}
+        className={`grid min-h-48 place-items-center bg-gradient-to-br from-primary/80 to-primary/40 ${className ?? ""}`}
       >
         <span className="text-xs uppercase tracking-[0.18em] text-bg/70">Foto próximamente</span>
       </div>

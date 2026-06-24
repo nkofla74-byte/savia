@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HeroBackground } from "./HeroBackground";
 
-const NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
+const NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573182359277";
 const WA_HREF = `https://wa.me/${NUMBER}?text=${encodeURIComponent(
   "Hola Savia, quiero pedir información 🌿",
 )}`;
