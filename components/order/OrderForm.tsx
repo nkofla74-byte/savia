@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, MessageCircle, ShoppingBag } from "lucide-react";
+import { Check, ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart/store";
 import { pedidoSchema, type PedidoInput } from "@/lib/order/schema";
 import { crearPedido } from "@/lib/order/actions";
@@ -12,6 +12,7 @@ import { buildWhatsAppMessage } from "@/lib/cart/whatsapp";
 import { DEPARTAMENTOS } from "@/content/colombia";
 import { formatCOP } from "@/lib/utils";
 import { Reveal } from "@/lib/motion/Reveal";
+import { NequiPayment } from "@/components/cart/NequiPayment";
 
 const NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573182359277";
 
@@ -24,23 +25,36 @@ export function OrderForm() {
   const items = useCart((s) => s.items);
   const subtotal = useCart((s) => s.subtotal());
   const clear = useCart((s) => s.clear);
+  const [pay, setPay] = useState<{ customer: PedidoInput; referencia: string } | null>(null);
   const [done, setDone] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [confirming, setConfirming] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<PedidoInput>({ resolver: zodResolver(pedidoSchema) });
 
-  const onSubmit = async (data: PedidoInput) => {
+  // Paso 1: validar datos y pasar al paso de pago (la referencia se mantiene
+  // estable si el cliente vuelve atrás). El pedido aún NO se guarda.
+  const onSubmit = (data: PedidoInput) => {
     setServerError(null);
-    const referencia = generateOrderRef();
-    const res = await crearPedido(data, items, referencia);
+    setPay((prev) => ({ customer: data, referencia: prev?.referencia ?? generateOrderRef() }));
+  };
+
+  // Paso 2: el cliente confirma que ya pagó → guardamos el pedido y abrimos
+  // WhatsApp para que envíe el comprobante.
+  const confirmarPago = async () => {
+    if (!pay) return;
+    setServerError(null);
+    setConfirming(true);
+    const res = await crearPedido(pay.customer, items, pay.referencia);
     if (!res.ok) {
       setServerError(res.error);
+      setConfirming(false);
       return;
     }
-    const { url } = buildWhatsAppMessage(items, data, NUMBER, res.referencia);
+    const { url } = buildWhatsAppMessage(items, pay.customer, NUMBER, res.referencia);
     window.open(url, "_blank", "noopener,noreferrer");
     clear();
     setDone(res.referencia);
@@ -56,7 +70,7 @@ export function OrderForm() {
           <p className="mt-4 font-display text-2xl text-primary">¡Pedido registrado! 🌿</p>
           <p className="mt-2 text-ink/80">
             Tu referencia es <strong className="font-mono text-primary">{done}</strong>. Te abrimos
-            WhatsApp para confirmarlo y coordinar el envío.
+            WhatsApp para que nos envíes el comprobante de pago y coordinemos el envío.
           </p>
           <Link
             href="/tienda"
@@ -66,6 +80,27 @@ export function OrderForm() {
           </Link>
         </div>
       </Reveal>
+    );
+  }
+
+  if (pay && items.length > 0) {
+    return (
+      <div className="mx-auto mt-10 max-w-lg space-y-4 rounded-3xl border border-primary/10 bg-surface p-6 shadow-sm sm:p-8">
+        <NequiPayment
+          reference={pay.referencia}
+          total={subtotal}
+          onConfirm={() => void confirmarPago()}
+          submitting={confirming}
+          error={serverError}
+        />
+        <button
+          type="button"
+          onClick={() => setPay(null)}
+          className="w-full text-center text-sm text-muted transition-colors hover:text-primary"
+        >
+          ← Volver a mis datos
+        </button>
+      </div>
     );
   }
 
@@ -183,11 +218,9 @@ export function OrderForm() {
 
         <button
           type="submit"
-          disabled={isSubmitting}
           className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-medium text-bg transition hover:opacity-90 disabled:opacity-60"
         >
-          <MessageCircle className="h-4 w-4" aria-hidden />
-          {isSubmitting ? "Registrando…" : "Confirmar y coordinar por WhatsApp"}
+          Continuar al pago
         </button>
         <p className="text-center text-xs text-muted">
           Tus datos solo se usan para coordinar el envío. Sin spam.

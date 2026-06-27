@@ -27,6 +27,8 @@ export function buildWhatsAppMessage(
     "",
     `Subtotal: ${formatCOP(subtotal)}`,
     "",
+    "Pago: Nequi — ya realicé el pago, adjunto comprobante 📎",
+    "",
     "Datos de envío:",
     `Nombre: ${customer.nombre}`,
     `Teléfono: ${customer.telefono}`,
