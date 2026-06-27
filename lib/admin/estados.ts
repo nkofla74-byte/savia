@@ -12,3 +12,18 @@ export const ESTADO_LABEL: Record<EstadoPedido, string> = {
   entregado: "Entregado",
   cancelado: "Cancelado",
 };
+
+export const ESTADOS_PAGO = ["pendiente", "aprobado", "rechazado", "error"] as const;
+export type EstadoPagoAdmin = (typeof ESTADOS_PAGO)[number];
+
+export const ESTADO_PAGO_LABEL: Record<EstadoPagoAdmin, string> = {
+  pendiente: "Por verificar",
+  aprobado: "Pagado",
+  rechazado: "Rechazado",
+  error: "Error",
+};
+
+export const METODO_LABEL: Record<"manual" | "wompi", string> = {
+  manual: "Nequi",
+  wompi: "Wompi",
+};

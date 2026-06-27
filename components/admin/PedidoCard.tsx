@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ESTADOS, ESTADO_LABEL } from "@/lib/admin/estados";
+import { ESTADOS, ESTADO_LABEL, ESTADO_PAGO_LABEL, METODO_LABEL } from "@/lib/admin/estados";
 import { cambiarEstadoPedido, eliminarPedido } from "@/lib/admin/actions";
 import { formatCOP } from "@/lib/utils";
 import type { PedidoRow, PedidoItemRow } from "@/lib/admin/queries";
@@ -35,14 +35,30 @@ export function PedidoCard({ pedido, items }: { pedido: PedidoRow; items: Pedido
     <div className="rounded-2xl border border-primary/10 bg-surface/50 p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-sm text-primary">{pedido.referencia}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="font-mono text-sm text-primary">{pedido.referencia}</p>
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
+              {METODO_LABEL[pedido.metodo_pago]}
+            </span>
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs ${
+                pedido.estado_pago === "aprobado"
+                  ? "bg-primary/15 text-primary"
+                  : pedido.estado_pago === "rechazado" || pedido.estado_pago === "error"
+                    ? "bg-accent/15 text-accent"
+                    : "bg-muted/15 text-muted"
+              }`}
+            >
+              {ESTADO_PAGO_LABEL[pedido.estado_pago]}
+            </span>
+          </div>
           <p className="font-medium text-ink">{pedido.nombre} · {pedido.telefono}</p>
           <p className="text-sm text-muted">{pedido.departamento} · {pedido.ciudad} · {pedido.direccion}</p>
           {pedido.notas && <p className="text-sm text-muted">Notas: {pedido.notas}</p>}
           <p className="mt-1 text-xs text-muted">{new Date(pedido.created_at).toLocaleString("es-CO")}</p>
         </div>
         <div className="text-right">
-          <p className="font-medium text-ink">{formatCOP(pedido.subtotal_cop)}</p>
+          <p className="font-medium text-ink">{formatCOP(pedido.total_cop ?? pedido.subtotal_cop)}</p>
           <select
             value={estado}
             disabled={busy}
