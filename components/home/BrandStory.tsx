@@ -4,9 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion/useReducedMotion";
 import { SectionImage } from "@/components/media/SectionImage";
 
-// Cuando existan las fotos, definir las rutas (ej. "/secciones/historia-1.jpg").
-const SLIDE_A: string | undefined = undefined;
-const SLIDE_B: string | undefined = undefined;
+const SLIDE_A: string | undefined = "/secciones/historia-1.jpg";
+const SLIDE_B: string | undefined = "/secciones/historia-2.jpg";
 
 const QUOTE =
   "“Savia es el ritual diario que se permite quien entiende que el cuidado propio no es lujo, es inversión.”";

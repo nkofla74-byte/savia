@@ -49,11 +49,11 @@ export function NequiPayment({
 
       <div className="grid place-items-center rounded-2xl border border-primary/10 bg-surface/40 p-5">
         <Image
-          src="/nequi-qr.png"
+          src="/nequi-qr.jpeg"
           alt="Código QR de pago Nequi de Savia"
-          width={180}
-          height={180}
-          className="h-44 w-44 rounded-lg object-contain"
+          width={300}
+          height={560}
+          className="h-auto w-full max-w-[260px] rounded-xl object-contain"
         />
         <p className="mt-2 text-xs text-muted">Escanea con tu app Nequi</p>
       </div>

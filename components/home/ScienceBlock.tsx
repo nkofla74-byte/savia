@@ -8,8 +8,7 @@ const points = [
   { t: "Hecho en Bogotá", d: "Producción local, fórmulas cuidadas, precio justo." },
 ];
 
-// Cuando exista la foto, definir: const CIENCIA_IMG = "/secciones/ciencia.jpg";
-const CIENCIA_IMG: string | undefined = undefined;
+const CIENCIA_IMG: string | undefined = "/secciones/ciencia.jpg";
 
 export function ScienceBlock() {
   return (
