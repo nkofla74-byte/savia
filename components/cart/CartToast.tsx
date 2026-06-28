@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart/store";
 
 export function CartToast() {
@@ -34,7 +34,7 @@ export function CartToast() {
             className="pointer-events-auto flex items-center gap-3 rounded-full border border-primary/15 bg-surface px-5 py-3 shadow-xl shadow-ink/10"
           >
             <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary text-bg">
-              <ShoppingBag className="h-4 w-4" aria-hidden />
+              <ShoppingCart className="h-4 w-4" aria-hidden />
             </span>
             <p className="text-sm text-ink">
               <span className="font-medium text-primary">{visible.nombre}</span> agregado al carrito

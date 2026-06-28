@@ -81,7 +81,13 @@
     --font-body-stack: var(--font-hanken), system-ui, sans-serif;
   }
 
-  html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+    font-size: 17px; /* base mayor: escala todo el texto (rem) en la web */
+  }
+  @media (min-width: 768px) {
+    html { font-size: 18px; }
+  }
   body {
     overflow-x: clip; /* evita scroll horizontal por el hero full-bleed (w-screen); clip no rompe el sticky de BrandStory */
     background-color: rgb(var(--color-bg-rgb));

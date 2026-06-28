@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart/store";
 import { CartDrawer } from "./CartDrawer";
 
@@ -15,9 +15,9 @@ export function CartButton() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`Carrito (${count})`}
-        className="relative grid h-9 w-9 place-items-center rounded-full text-primary transition-colors hover:bg-primary/10"
+        className="relative grid h-11 w-11 place-items-center rounded-full text-primary transition-colors hover:bg-primary/10"
       >
-        <ShoppingBag className="h-5 w-5" aria-hidden />
+        <ShoppingCart className="h-7 w-7" aria-hidden />
         <AnimatePresence>
           {count > 0 && (
             <motion.span
