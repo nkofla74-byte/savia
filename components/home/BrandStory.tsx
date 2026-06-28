@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useReducedMotion } from "@/lib/motion/useReducedMotion";
 import { SectionImage } from "@/components/media/SectionImage";
 import { EASE } from "@/lib/motion/variants";
 
@@ -27,27 +26,12 @@ function Quote() {
 }
 
 export function BrandStory() {
-  const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (reduced) return;
     const id = setInterval(() => setIndex((i) => (i + 1) % SLIDES.length), 4200);
     return () => clearInterval(id);
-  }, [reduced]);
-
-  if (reduced) {
-    return (
-      <section className="py-24">
-        <Quote />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {SLIDES.slice(0, 2).map((s) => (
-            <SectionImage key={s.src} src={s.src} alt={s.alt} className="aspect-[4/5] w-full rounded-2xl" />
-          ))}
-        </div>
-      </section>
-    );
-  }
+  }, []);
 
   const slide = SLIDES[index] ?? SLIDES[0];
 
