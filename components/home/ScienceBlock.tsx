@@ -26,8 +26,11 @@ export function ScienceBlock() {
         </Reveal>
         <Stagger className="grid gap-6" fast>
           {points.map((p) => (
-            <StaggerItem key={p.t} className="rounded-2xl border border-primary/10 bg-surface/40 p-6">
-              <h3 className="font-display text-lg text-primary">{p.t}</h3>
+            <StaggerItem
+              key={p.t}
+              className="group rounded-2xl border border-primary/10 bg-surface/40 p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-surface/80 hover:shadow-xl hover:shadow-primary/5"
+            >
+              <h3 className="font-display text-lg text-primary transition-colors duration-300 group-hover:text-accent">{p.t}</h3>
               <p className="mt-2 text-ink/80">{p.d}</p>
             </StaggerItem>
           ))}
