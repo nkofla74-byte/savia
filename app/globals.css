@@ -173,3 +173,9 @@
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+/* Entrada sutil del hero por CSS (sin esperar a la hidratación de JS). */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
