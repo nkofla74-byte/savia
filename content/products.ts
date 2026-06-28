@@ -67,7 +67,7 @@ export const products: Product[] = [
     porQueFunciona: "Los aceites vegetales ayudan a sellar la cutícula del cabello, aportando brillo y suavidad.",
     ingredientes: ["Aceite de coco", "Aceite de argán", "Aceite esencial herbal"],
     modoDeUso: "Aplica una pequeña cantidad en puntas y medios; no enjuagar.",
-    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/raiz.jpeg", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/raiz.jpeg", destacado: true,
   },
   {
     slug: "luz", nombre: "Luz", linea: "Sérum Facial",
