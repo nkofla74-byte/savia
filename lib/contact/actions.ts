@@ -8,7 +8,9 @@ export async function enviarMensaje(input: ContactoInput): Promise<ActionResult>
   const parsed = contactoSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: "Datos inválidos." };
 
-  const { nombre, telefono, email, asunto, mensaje } = parsed.data;
+  const { nombre, telefono, email, motivo, piel, mensaje } = parsed.data;
+  // El tipo de piel se guarda dentro de `asunto` para no requerir nueva columna.
+  const asunto = piel ? `${motivo} · Piel: ${piel}` : motivo;
   const supabase = getSupabaseServer();
   const { error } = await supabase.from("mensajes").insert({
     nombre,
