@@ -3,8 +3,11 @@ import { create } from "zustand";
 export type CartItem = { slug: string; nombre: string; precioCOP: number; qty: number };
 type NewItem = Omit<CartItem, "qty">;
 
+type LastAdded = { nombre: string; at: number };
+
 type CartState = {
   items: CartItem[];
+  lastAdded: LastAdded | null;
   add: (item: NewItem) => void;
   remove: (slug: string) => void;
   setQty: (slug: string, qty: number) => void;
@@ -15,11 +18,15 @@ type CartState = {
 
 export const useCart = create<CartState>((set, get) => ({
   items: [],
+  lastAdded: null,
   add: (item) =>
     set((s) => {
       const existing = s.items.find((i) => i.slug === item.slug);
-      if (existing) return { items: s.items.map((i) => (i.slug === item.slug ? { ...i, qty: i.qty + 1 } : i)) };
-      return { items: [...s.items, { ...item, qty: 1 }] };
+      const items = existing
+        ? s.items.map((i) => (i.slug === item.slug ? { ...i, qty: i.qty + 1 } : i))
+        : [...s.items, { ...item, qty: 1 }];
+      // `at` con timestamp para que el aviso se redispare aunque sea el mismo producto.
+      return { items, lastAdded: { nombre: item.nombre, at: Date.now() } };
     }),
   remove: (slug) => set((s) => ({ items: s.items.filter((i) => i.slug !== slug) })),
   setQty: (slug, qty) =>

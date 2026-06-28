@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { LenisProvider } from "@/lib/motion/LenisProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CartToast } from "@/components/cart/CartToast";
 import WhatsAppButton from "@/components/whatsAppButton/WhatsAppButton";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   <ThemeProvider>
     <LenisProvider>
       <Header />
+      <CartToast />
 
       <main className="mx-auto max-w-6xl px-5">
         {children}
