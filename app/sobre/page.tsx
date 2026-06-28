@@ -6,7 +6,7 @@ export default function SobrePage() {
     <section className="max-w-2xl py-16">
       <h1 className="font-display text-4xl font-bold text-primary">Sobre Savia</h1>
 
-      <Reveal className="mt-8">
+      <Reveal className="mt-8" direction="right">
         <SectionImage
           src="/secciones/galeria-2.jpg"
           alt="Aceites botánicos de Savia con pétalos de rosa"
@@ -15,7 +15,7 @@ export default function SobrePage() {
         />
       </Reveal>
 
-      <Reveal className="mt-8 space-y-4 text-ink/85">
+      <Reveal className="mt-8 space-y-4 text-ink/85" blur>
         <p>Savia nació de una idea sencilla: cuidar la piel no debería ser complicado..</p>
         <p>Después de probar productos que prometían resultados extraordinarios y entregaban muy poco, decidimos crear algo diferente. Formulamos aceites y productos para el cuidado personal con ingredientes seleccionados por lo que realmente aportan, no por las tendencias del momento.
 
@@ -25,7 +25,7 @@ Creemos en la belleza de lo natural, en las rutinas simples y en los pequeños m
 Porque cuidar de ti no debería ser un lujo, sino un hábito..</p>
       </Reveal>
 
-      <Reveal className="mt-10">
+      <Reveal className="mt-10" direction="left">
         <SectionImage
           src="/secciones/historia-1.jpg"
           alt="Frasco de aceite de Savia con lavanda"
@@ -34,7 +34,7 @@ Porque cuidar de ti no debería ser un lujo, sino un hábito..</p>
         />
       </Reveal>
 
-      <Reveal className="mt-8 space-y-4 text-ink/85">
+      <Reveal className="mt-8 space-y-4 text-ink/85" blur>
         <h2 className="font-display text-3xl font-bold text-primary">Nuestra historia</h2>
         <p>En Savia creemos que el cuidado personal empieza con algo muy simple: dedicarte unos minutos a ti.
 
@@ -49,7 +49,7 @@ Somos una marca bogotana que cree en la calidad, la transparencia y el poder de 
 Savia es cuidado consciente, hecho para personas reales...</p>
       </Reveal>
 
-      <Reveal className="mt-10">
+      <Reveal className="mt-10" direction="right">
         <SectionImage
           src="/secciones/galeria-5.jpg"
           alt="Aceites y crema de Savia con hierbas aromáticas"

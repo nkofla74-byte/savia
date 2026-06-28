@@ -13,18 +13,18 @@ const CIENCIA_IMG: string | undefined = "/secciones/ciencia.jpg";
 export function ScienceBlock() {
   return (
     <section className="py-24">
-      <Reveal>
+      <Reveal blur>
         <h2 className="font-display text-3xl font-bold text-primary">Con base científica</h2>
       </Reveal>
       <div className="mt-10 grid items-center gap-10 md:grid-cols-2">
-        <Reveal>
+        <Reveal direction="left">
           <SectionImage
             src={CIENCIA_IMG}
             alt="Detalle de ingredientes botánicos de Savia"
             className="aspect-[4/3] w-full rounded-2xl"
           />
         </Reveal>
-        <Stagger className="grid gap-6">
+        <Stagger className="grid gap-6" fast>
           {points.map((p) => (
             <StaggerItem key={p.t} className="rounded-2xl border border-primary/10 bg-surface/40 p-6">
               <h3 className="font-display text-lg text-primary">{p.t}</h3>
