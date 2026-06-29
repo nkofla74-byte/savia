@@ -37,7 +37,7 @@ export const products: Product[] = [
   {
     slug: "calma", nombre: "Calma", linea: "Relajante · Lavanda",
     usos: ["cuerpo", "masaje"], tamanoMl: 100, precioCOP: 13900,
-    descripcion: "Aceite corporal de masaje que suaviza la piel; su aroma a lavanda ayuda a relajar.",
+    descripcion: "Un ritual de calma hecho aceite. La lavanda, valorada por su aroma sereno, se mezcla con almendra dulce y coco fraccionado —aceites ricos en ácidos grasos que envuelven la piel— para un masaje nocturno que la deja suave, nutrida y lista para descansar.",
     porQueFunciona: "La lavanda aporta un aroma asociado a la sensación de calma; la base de aceites vegetales suaviza y nutre la piel.",
     ingredientes: ["Aceite de almendra dulce", "Aceite de coco fraccionado", "Aceite esencial de lavanda", "Vitamina E"],
     modoDeUso: "Aplica de noche, después del baño, con masajes suaves en brazos, pecho y cuello.",
@@ -46,7 +46,7 @@ export const products: Product[] = [
   {
     slug: "despierta", nombre: "Despierta", linea: "Café Energizante",
     usos: ["cuerpo", "masaje"], tamanoMl: 100, precioCOP: 13900,
-    descripcion: "Aceite vigorizante con café; aroma café-cítrico, ideal para piernas.",
+    descripcion: "El despertar de tu piel. Extracto de café y un toque cítrico crean un aroma que activa los sentidos, sobre una base ligera que se desliza fácil en el masaje y deja las piernas suaves y con sensación de ligereza.",
     porQueFunciona: "La cafeína se asocia a la sensación de ligereza; la fórmula deja la piel suave con un aroma estimulante.",
     ingredientes: ["Aceite de girasol", "Extracto de café", "Aceite esencial cítrico", "Vitamina E"],
     modoDeUso: "Masajea en piernas y zonas a tonificar, con movimientos ascendentes.",
@@ -55,7 +55,7 @@ export const products: Product[] = [
   {
     slug: "cacao", nombre: "Cacao", linea: "Nutritivo",
     usos: ["cuerpo"], tamanoMl: 100, precioCOP: 13900,
-    descripcion: "Aceite muy emoliente para piel seca; aroma envolvente a cacao.",
+    descripcion: "Nutrición golosa para piel sedienta. Los lípidos del cacao son altamente emolientes y forman una capa que ayuda a retener la hidratación, ideal para zonas secas. Aroma envolvente que convierte el cuidado en un antojo.",
     porQueFunciona: "Los lípidos del cacao son altamente emolientes y ayudan a nutrir la piel seca.",
     ingredientes: ["Manteca/aceite de cacao", "Aceite de almendra dulce", "Vitamina E"],
     modoDeUso: "Aplica sobre piel limpia, especialmente en zonas secas.",
@@ -64,7 +64,7 @@ export const products: Product[] = [
   {
     slug: "frescor", nombre: "Frescor", linea: "Menta Refrescante",
     usos: ["cuerpo"], tamanoMl: 100, precioCOP: 13900,
-    descripcion: "Aceite ligero de aroma refrescante; de rápida absorción.",
+    descripcion: "Frescura que se siente al instante. El aceite esencial de menta aporta una sensación refrescante inconfundible mientras la base de girasol, ligera y de rápida absorción, deja la piel suave y sin rastro graso.",
     porQueFunciona: "La menta aporta una sensación refrescante; la base ligera se absorbe rápido sin sensación grasa.",
     ingredientes: ["Aceite de girasol", "Aceite esencial de menta", "Vitamina E"],
     modoDeUso: "Aplica en cuerpo tras el baño para una sensación fresca.",
@@ -73,7 +73,7 @@ export const products: Product[] = [
   {
     slug: "raiz", nombre: "Raíz", linea: "Capilar Acondicionador",
     usos: ["cabello"], tamanoMl: 100, precioCOP: 13900,
-    descripcion: "Suaviza, da brillo y reduce el frizz; aroma herbal.",
+    descripcion: "Brillo de raíz a puntas. Argán y coco, ricos en ácidos grasos, ayudan a sellar la cutícula del cabello para domar el frizz y devolver suavidad y luz. Unas gotas bastan.",
     porQueFunciona: "Los aceites vegetales ayudan a sellar la cutícula del cabello, aportando brillo y suavidad.",
     ingredientes: ["Aceite de coco", "Aceite de argán", "Aceite esencial herbal"],
     modoDeUso: "Aplica una pequeña cantidad en puntas y medios; no enjuagar.",
@@ -82,7 +82,7 @@ export const products: Product[] = [
   {
     slug: "luz", nombre: "Luz", linea: "Sérum Facial",
     usos: ["rostro"], tamanoMl: 30, precioCOP: 21900,
-    descripcion: "Aporta luminosidad y suavidad; mejora la apariencia de la elasticidad. Sin fragancia.",
+    descripcion: "Tu sérum de noche. Argán y semilla de uva, ricos en antioxidantes y vitamina E, aportan luminosidad y mejoran la apariencia de la elasticidad mientras descansas. Sin fragancia, para pieles que buscan lo esencial.",
     porQueFunciona: "El argán y la semilla de uva ayudan a mejorar la apariencia de la piel y a reforzar su sensación de suavidad.",
     ingredientes: ["Aceite de argán", "Aceite de semilla de uva", "Vitamina E"],
     modoDeUso: "Aplica unas gotas en el rostro por la noche, sobre piel limpia.",
@@ -91,7 +91,7 @@ export const products: Product[] = [
   {
     slug: "rocio-de-rosas", nombre: "Rocío de Rosas", linea: "Tónico facial",
     usos: ["rostro"], tamanoMl: 200, precioCOP: 13900,
-    descripcion: "Tónico facial de agua de rosas; producto fresco, edición especial por pedido.",
+    descripcion: "Un soplo de frescura para tu rostro. Agua de rosas pura que refresca, reconforta y prepara la piel antes de tu rutina. Producto fresco, hecho por pedido y conservado en frío para que llegue vivo.",
     porQueFunciona: "El agua de rosas aporta una sensación refrescante y de confort a la piel del rostro.",
     ingredientes: ["Agua de rosas", "Conservante cosmético apto"],
     modoDeUso: "Aplica con algodón sobre el rostro limpio. Mantener refrigerado.",
@@ -103,7 +103,7 @@ export const products: Product[] = [
   {
     slug: "cafe", nombre: "Café", linea: "Aceite solo · Energizante",
     usos: ["cuerpo", "masaje"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de café de aroma cálido y tostado; ideal para masajes corporales.",
+    descripcion: "Café puro en aceite. Su aroma cálido y tostado despierta los sentidos mientras la base vegetal, rica en ácidos grasos, deja la piel suave. El favorito para masajes que activan.",
     porQueFunciona: "El café aporta un aroma estimulante; la base de aceites vegetales deja la piel suave.",
     ingredientes: ["Aceite vegetal", "Extracto de café", "Vitamina E"],
     modoDeUso: "Aplica unas gotas y masajea sobre la piel.",
@@ -112,7 +112,7 @@ export const products: Product[] = [
   {
     slug: "chocolate", nombre: "Chocolate", linea: "Aceite solo · Envolvente",
     usos: ["cuerpo"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de aroma dulce a chocolate; nutre y deja la piel suave.",
+    descripcion: "Puro placer sensorial. Un aroma dulce a chocolate sobre una base emoliente que nutre y deja la piel suave y reconfortada. Cuidado que se siente como un mimo.",
     porQueFunciona: "Los lípidos vegetales son emolientes y ayudan a nutrir la piel.",
     ingredientes: ["Aceite vegetal", "Aroma de cacao", "Vitamina E"],
     modoDeUso: "Aplica sobre piel limpia, especialmente en zonas secas.",
@@ -121,7 +121,7 @@ export const products: Product[] = [
   {
     slug: "cacao-puro", nombre: "Cacao", linea: "Aceite solo · Nutritivo",
     usos: ["cuerpo"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de cacao muy emoliente para piel seca; aroma envolvente.",
+    descripcion: "El emoliente de los expertos. El cacao es uno de los lípidos más nutritivos que existen, ideal para piel muy seca: envuelve, suaviza y deja un aroma cálido e inconfundible.",
     porQueFunciona: "Los lípidos del cacao son altamente emolientes y ayudan a nutrir la piel seca.",
     ingredientes: ["Aceite/manteca de cacao", "Aceite vegetal", "Vitamina E"],
     modoDeUso: "Aplica sobre piel limpia, masajeando hasta absorber.",
@@ -130,7 +130,7 @@ export const products: Product[] = [
   {
     slug: "naranja", nombre: "Naranja", linea: "Aceite solo · Cítrico",
     usos: ["cuerpo", "masaje"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de aroma cítrico y fresco; ligero, ideal para masaje.",
+    descripcion: "Energía cítrica en gotas. El aceite esencial de naranja aporta un aroma fresco y vital sobre una base ligera que se absorbe rápido. Perfecto para masajes que levantan el ánimo.",
     porQueFunciona: "El aroma cítrico aporta una sensación vital; la base ligera se absorbe bien.",
     ingredientes: ["Aceite vegetal", "Aceite esencial de naranja", "Vitamina E"],
     modoDeUso: "Masajea sobre la piel con movimientos suaves.",
@@ -139,7 +139,7 @@ export const products: Product[] = [
   {
     slug: "menta", nombre: "Menta", linea: "Aceite solo · Refrescante",
     usos: ["cuerpo", "masaje"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de aroma refrescante a menta; sensación fresca al aplicar.",
+    descripcion: "Un golpe de frescura natural. La menta regala esa sensación refrescante inconfundible mientras la base ligera se absorbe al instante. Ideal para piernas cansadas al final del día.",
     porQueFunciona: "La menta aporta una sensación refrescante; la base se absorbe rápido.",
     ingredientes: ["Aceite vegetal", "Aceite esencial de menta", "Vitamina E"],
     modoDeUso: "Aplica en cuerpo o piernas para una sensación fresca.",
@@ -148,7 +148,7 @@ export const products: Product[] = [
   {
     slug: "almendras", nombre: "Almendras", linea: "Aceite solo · Base versátil",
     usos: ["cuerpo", "rostro", "cabello"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de almendra dulce, suave y versátil para piel y cabello.",
+    descripcion: "El comodín de tu rutina. La almendra dulce es un aceite ligero y bien tolerado, rico en ácidos grasos y vitamina E. Suaviza piel, rostro y puntas del cabello con una sola fórmula.",
     porQueFunciona: "La almendra dulce es un aceite ligero que suaviza y nutre piel y cabello.",
     ingredientes: ["Aceite de almendra dulce", "Vitamina E"],
     modoDeUso: "Aplica en piel húmeda o en puntas del cabello.",
@@ -157,7 +157,7 @@ export const products: Product[] = [
   {
     slug: "coco", nombre: "Coco", linea: "Aceite solo · Ligero",
     usos: ["cuerpo", "cabello"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de coco fraccionado, ligero y de rápida absorción.",
+    descripcion: "Ligereza que no pesa. El coco fraccionado es sedoso, no graso y de rápida absorción: cuida la sensación de hidratación de la piel y aporta brillo al cabello sin dejar residuo.",
     porQueFunciona: "El coco fraccionado es ligero, no graso y deja la piel suave.",
     ingredientes: ["Aceite de coco fraccionado", "Vitamina E"],
     modoDeUso: "Aplica en cuerpo tras el baño o en el cabello.",
@@ -166,7 +166,7 @@ export const products: Product[] = [
   {
     slug: "uva", nombre: "Uva", linea: "Aceite solo · Facial ligero",
     usos: ["rostro", "cuerpo"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
-    descripcion: "Aceite de semilla de uva, ligero y de rápida absorción; ideal para rostro.",
+    descripcion: "El aceite facial que sí desaparece. La semilla de uva es ligera, no comedogénica y rica en antioxidantes, perfecta para el rostro: se absorbe rápido y deja la piel tersa y luminosa.",
     porQueFunciona: "La semilla de uva es un aceite ligero que ayuda a la sensación de suavidad de la piel.",
     ingredientes: ["Aceite de semilla de uva", "Vitamina E"],
     modoDeUso: "Aplica unas gotas en el rostro por la noche, sobre piel limpia.",
