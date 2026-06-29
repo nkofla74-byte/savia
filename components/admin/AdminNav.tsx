@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, Users, BarChart3, MessageSquare } from "lucide-react";
+import { LayoutDashboard, Package, Tag, Boxes, Users, BarChart3, MessageSquare } from "lucide-react";
 
 const ITEMS = [
   { href: "/admin", label: "Inicio", Icon: LayoutDashboard, exact: true },
   { href: "/admin/pedidos", label: "Pedidos", Icon: Package, exact: false },
+  { href: "/admin/productos", label: "Productos", Icon: Tag, exact: false },
+  { href: "/admin/inventario", label: "Inventario", Icon: Boxes, exact: false },
   { href: "/admin/clientes", label: "Clientes", Icon: Users, exact: false },
   { href: "/admin/reportes", label: "Reportes", Icon: BarChart3, exact: false },
   { href: "/admin/mensajes", label: "Mensajes", Icon: MessageSquare, exact: false },

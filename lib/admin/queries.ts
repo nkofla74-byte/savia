@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server-ssr";
+import { products } from "@/content/products";
 import { ESTADOS, type EstadoPedido } from "./estados";
 
 export type PedidoRow = {
@@ -55,6 +56,15 @@ export async function getItemsDePedidos(pedidoIds: string[]): Promise<PedidoItem
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.from("pedido_items").select("*").in("pedido_id", pedidoIds);
   return (data as PedidoItemRow[] | null) ?? [];
+}
+
+export type InventarioItem = { slug: string; nombre: string; linea: string; stock: number };
+
+export async function getInventario(): Promise<InventarioItem[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data } = await supabase.from("inventario").select("slug, stock");
+  const stockMap = new Map(((data as { slug: string; stock: number }[] | null) ?? []).map((r) => [r.slug, r.stock]));
+  return products.map((p) => ({ slug: p.slug, nombre: p.nombre, linea: p.linea, stock: stockMap.get(p.slug) ?? 0 }));
 }
 
 export async function getPedido(id: string): Promise<{ pedido: PedidoRow; items: PedidoItemRow[] } | null> {
