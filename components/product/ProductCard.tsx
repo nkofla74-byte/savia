@@ -4,6 +4,7 @@ import type { Product } from "@/content/products";
 import { Botanical } from "@/illustrations/Botanical";
 import { formatCOP } from "@/lib/utils";
 import { QuickAddButton } from "./QuickAddButton";
+import { AgregarConTamano } from "./AgregarConTamano";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
@@ -38,12 +39,17 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="mt-0.5 text-sm text-accent">{product.linea}</p>
         <p className="mt-3 line-clamp-2 flex-1 text-sm leading-relaxed text-ink/70">{product.descripcion}</p>
 
-        <div className="mt-4 flex items-end justify-between">
-          <span className="text-xs text-muted">{product.tamanoMl} ml</span>
-          <p className="font-display text-lg font-medium text-ink">{formatCOP(product.precioCOP)}</p>
-        </div>
-
-        <QuickAddButton slug={product.slug} nombre={product.nombre} precioCOP={product.precioCOP} />
+        {product.presentaciones ? (
+          <AgregarConTamano slug={product.slug} nombre={product.nombre} presentaciones={product.presentaciones} />
+        ) : (
+          <>
+            <div className="mt-4 flex items-end justify-between">
+              <span className="text-xs text-muted">{product.tamanoMl} ml</span>
+              <p className="font-display text-lg font-medium text-ink">{formatCOP(product.precioCOP)}</p>
+            </div>
+            <QuickAddButton slug={product.slug} nombre={product.nombre} precioCOP={product.precioCOP} />
+          </>
+        )}
       </div>
     </article>
   );

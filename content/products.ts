@@ -18,10 +18,20 @@ export type Product = {
   imagen?: string;
   destacado: boolean;
   edicionEspecial?: boolean;
+  /** Presentaciones por tamaño. Si está presente, la tienda muestra un selector de ml. */
+  presentaciones?: { ml: number; precioCOP: number }[];
 };
 
 const ADVERTENCIA =
   "Uso cosmético externo. Realice una prueba de parche antes del primer uso. Evite el contacto con los ojos.";
+
+// PLACEHOLDER: precios provisionales por tamaño (iguales para todos los aceites solos).
+// Edítalos con los precios reales cuando los tengas.
+const PRES_3: { ml: number; precioCOP: number }[] = [
+  { ml: 30, precioCOP: 9900 },
+  { ml: 60, precioCOP: 14900 },
+  { ml: 100, precioCOP: 19900 },
+];
 
 export const products: Product[] = [
   {
@@ -87,6 +97,80 @@ export const products: Product[] = [
     modoDeUso: "Aplica con algodón sobre el rostro limpio. Mantener refrigerado.",
     advertencia: ADVERTENCIA + " Producto fresco de vida útil corta; conservar en frío.",
     ilustracion: "rosa", imagen: "/products/agua_de_rosas.jpeg", destacado: false, edicionEspecial: true,
+  },
+
+  // --- Aceites solos (presentaciones 30 / 60 / 100 ml) ---
+  {
+    slug: "cafe", nombre: "Café", linea: "Aceite solo · Energizante",
+    usos: ["cuerpo", "masaje"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de café de aroma cálido y tostado; ideal para masajes corporales.",
+    porQueFunciona: "El café aporta un aroma estimulante; la base de aceites vegetales deja la piel suave.",
+    ingredientes: ["Aceite vegetal", "Extracto de café", "Vitamina E"],
+    modoDeUso: "Aplica unas gotas y masajea sobre la piel.",
+    advertencia: ADVERTENCIA, ilustracion: "cafe", destacado: false,
+  },
+  {
+    slug: "chocolate", nombre: "Chocolate", linea: "Aceite solo · Envolvente",
+    usos: ["cuerpo"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de aroma dulce a chocolate; nutre y deja la piel suave.",
+    porQueFunciona: "Los lípidos vegetales son emolientes y ayudan a nutrir la piel.",
+    ingredientes: ["Aceite vegetal", "Aroma de cacao", "Vitamina E"],
+    modoDeUso: "Aplica sobre piel limpia, especialmente en zonas secas.",
+    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+  },
+  {
+    slug: "cacao-puro", nombre: "Cacao", linea: "Aceite solo · Nutritivo",
+    usos: ["cuerpo"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de cacao muy emoliente para piel seca; aroma envolvente.",
+    porQueFunciona: "Los lípidos del cacao son altamente emolientes y ayudan a nutrir la piel seca.",
+    ingredientes: ["Aceite/manteca de cacao", "Aceite vegetal", "Vitamina E"],
+    modoDeUso: "Aplica sobre piel limpia, masajeando hasta absorber.",
+    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+  },
+  {
+    slug: "naranja", nombre: "Naranja", linea: "Aceite solo · Cítrico",
+    usos: ["cuerpo", "masaje"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de aroma cítrico y fresco; ligero, ideal para masaje.",
+    porQueFunciona: "El aroma cítrico aporta una sensación vital; la base ligera se absorbe bien.",
+    ingredientes: ["Aceite vegetal", "Aceite esencial de naranja", "Vitamina E"],
+    modoDeUso: "Masajea sobre la piel con movimientos suaves.",
+    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
+  },
+  {
+    slug: "menta", nombre: "Menta", linea: "Aceite solo · Refrescante",
+    usos: ["cuerpo", "masaje"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de aroma refrescante a menta; sensación fresca al aplicar.",
+    porQueFunciona: "La menta aporta una sensación refrescante; la base se absorbe rápido.",
+    ingredientes: ["Aceite vegetal", "Aceite esencial de menta", "Vitamina E"],
+    modoDeUso: "Aplica en cuerpo o piernas para una sensación fresca.",
+    advertencia: ADVERTENCIA, ilustracion: "menta", destacado: false,
+  },
+  {
+    slug: "almendras", nombre: "Almendras", linea: "Aceite solo · Base versátil",
+    usos: ["cuerpo", "rostro", "cabello"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de almendra dulce, suave y versátil para piel y cabello.",
+    porQueFunciona: "La almendra dulce es un aceite ligero que suaviza y nutre piel y cabello.",
+    ingredientes: ["Aceite de almendra dulce", "Vitamina E"],
+    modoDeUso: "Aplica en piel húmeda o en puntas del cabello.",
+    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
+  },
+  {
+    slug: "coco", nombre: "Coco", linea: "Aceite solo · Ligero",
+    usos: ["cuerpo", "cabello"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de coco fraccionado, ligero y de rápida absorción.",
+    porQueFunciona: "El coco fraccionado es ligero, no graso y deja la piel suave.",
+    ingredientes: ["Aceite de coco fraccionado", "Vitamina E"],
+    modoDeUso: "Aplica en cuerpo tras el baño o en el cabello.",
+    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+  },
+  {
+    slug: "uva", nombre: "Uva", linea: "Aceite solo · Facial ligero",
+    usos: ["rostro", "cuerpo"], tamanoMl: 30, precioCOP: 9900, presentaciones: PRES_3,
+    descripcion: "Aceite de semilla de uva, ligero y de rápida absorción; ideal para rostro.",
+    porQueFunciona: "La semilla de uva es un aceite ligero que ayuda a la sensación de suavidad de la piel.",
+    ingredientes: ["Aceite de semilla de uva", "Vitamina E"],
+    modoDeUso: "Aplica unas gotas en el rostro por la noche, sobre piel limpia.",
+    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
   },
 ];
 
