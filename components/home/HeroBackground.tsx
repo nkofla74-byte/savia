@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion/useReducedMotion";
 
-const HERO_IMAGE = "/hero/lavandacampo.png";
+const HERO_IMAGE = "/hero/romero-slate.jpg";
 
 export function HeroBackground() {
   const reduced = useReducedMotion();
@@ -17,11 +17,11 @@ export function HeroBackground() {
       >
         <Image
           src={HERO_IMAGE}
-          alt="Campo de lavanda al atardecer en flor"
+          alt="Aceites botánicos de Savia con romero"
           fill
           priority
           sizes="100vw"
-          className="object-cover [object-position:65%_center]"
+          className="object-cover [object-position:72%_center]"
         />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-ink/25 to-ink/65" />

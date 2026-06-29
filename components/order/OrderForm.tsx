@@ -3,15 +3,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, MessageCircle, ShoppingBag } from "lucide-react";
+import { Check, CreditCard, ShoppingBag, Smartphone } from "lucide-react";
 import { useCart } from "@/lib/cart/store";
 import { pedidoSchema, type PedidoInput } from "@/lib/order/schema";
-import { crearPedido } from "@/lib/order/actions";
+import { crearPedido, crearPedidoWompi } from "@/lib/order/actions";
 import { generateOrderRef } from "@/lib/cart/reference";
 import { buildWhatsAppMessage } from "@/lib/cart/whatsapp";
 import { DEPARTAMENTOS } from "@/content/colombia";
 import { formatCOP } from "@/lib/utils";
+import { ENVIO_COP, calcularTotal } from "@/lib/order/envio";
 import { Reveal } from "@/lib/motion/Reveal";
+import { NequiPayment } from "@/components/cart/NequiPayment";
 
 const NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573182359277";
 
@@ -20,30 +22,59 @@ const inputCls =
 const labelCls = "mb-1.5 block text-sm font-medium text-ink";
 const errCls = "mt-1 text-xs text-accent";
 
+type Metodo = "nequi" | "wompi";
+
 export function OrderForm() {
   const items = useCart((s) => s.items);
   const subtotal = useCart((s) => s.subtotal());
   const clear = useCart((s) => s.clear);
+  const total = calcularTotal(subtotal);
+
+  const [pay, setPay] = useState<{ customer: PedidoInput; referencia: string } | null>(null);
+  const [metodo, setMetodo] = useState<Metodo>("nequi");
   const [done, setDone] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [confirming, setConfirming] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<PedidoInput>({ resolver: zodResolver(pedidoSchema) });
 
-  const onSubmit = async (data: PedidoInput) => {
+  const onSubmit = (data: PedidoInput) => {
     setServerError(null);
-    const referencia = generateOrderRef();
-    const res = await crearPedido(data, items, referencia);
+    setPay((prev) => ({ customer: data, referencia: prev?.referencia ?? generateOrderRef() }));
+  };
+
+  // Nequi manual: guarda el pedido y abre WhatsApp para el comprobante.
+  const confirmarNequi = async () => {
+    if (!pay) return;
+    setServerError(null);
+    setConfirming(true);
+    const res = await crearPedido(pay.customer, items, pay.referencia);
     if (!res.ok) {
       setServerError(res.error);
+      setConfirming(false);
       return;
     }
-    const { url } = buildWhatsAppMessage(items, data, NUMBER, res.referencia);
+    const { url } = buildWhatsAppMessage(items, pay.customer, NUMBER, res.referencia);
     window.open(url, "_blank", "noopener,noreferrer");
     clear();
     setDone(res.referencia);
+  };
+
+  // Wompi: guarda el pedido pendiente y redirige al Web Checkout.
+  const pagarWompi = async () => {
+    if (!pay) return;
+    setServerError(null);
+    setConfirming(true);
+    const res = await crearPedidoWompi(pay.customer, items);
+    if (!res.ok) {
+      setServerError(res.error);
+      setConfirming(false);
+      return;
+    }
+    window.location.href = res.url;
   };
 
   if (done) {
@@ -56,7 +87,7 @@ export function OrderForm() {
           <p className="mt-4 font-display text-2xl text-primary">¡Pedido registrado! 🌿</p>
           <p className="mt-2 text-ink/80">
             Tu referencia es <strong className="font-mono text-primary">{done}</strong>. Te abrimos
-            WhatsApp para confirmarlo y coordinar el envío.
+            WhatsApp para que nos envíes el comprobante de pago y coordinemos el envío.
           </p>
           <Link
             href="/tienda"
@@ -66,6 +97,95 @@ export function OrderForm() {
           </Link>
         </div>
       </Reveal>
+    );
+  }
+
+  if (pay && items.length > 0) {
+    return (
+      <div className="mx-auto mt-10 max-w-lg space-y-5 rounded-3xl border border-primary/10 bg-surface p-6 shadow-sm sm:p-8">
+        {/* Resumen con envío */}
+        <div className="space-y-1.5 rounded-2xl border border-primary/10 bg-surface/50 p-4 text-sm">
+          <div className="flex justify-between text-muted">
+            <span>Subtotal</span>
+            <span>{formatCOP(subtotal)}</span>
+          </div>
+          <div className="flex justify-between text-muted">
+            <span>Envío nacional</span>
+            <span>{formatCOP(ENVIO_COP)}</span>
+          </div>
+          <div className="flex justify-between border-t border-primary/10 pt-1.5 font-medium text-ink">
+            <span>Total</span>
+            <span>{formatCOP(total)}</span>
+          </div>
+        </div>
+
+        {/* Selector de método */}
+        <div className="grid grid-cols-2 gap-2" role="tablist" aria-label="Método de pago">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={metodo === "nequi"}
+            onClick={() => setMetodo("nequi")}
+            className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${
+              metodo === "nequi"
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-primary/15 text-muted hover:bg-primary/5"
+            }`}
+          >
+            <Smartphone className="h-4 w-4" aria-hidden />
+            Nequi
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={metodo === "wompi"}
+            onClick={() => setMetodo("wompi")}
+            className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${
+              metodo === "wompi"
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-primary/15 text-muted hover:bg-primary/5"
+            }`}
+          >
+            <CreditCard className="h-4 w-4" aria-hidden />
+            Tarjeta / PSE
+          </button>
+        </div>
+
+        {metodo === "nequi" ? (
+          <NequiPayment
+            reference={pay.referencia}
+            total={total}
+            onConfirm={() => void confirmarNequi()}
+            submitting={confirming}
+            error={serverError}
+          />
+        ) : (
+          <div className="space-y-4 text-ink">
+            <p className="text-sm text-muted">
+              Te llevamos a la página segura de Wompi para pagar con tarjeta o PSE. Al confirmarse el
+              pago, preparamos tu pedido.
+            </p>
+            {serverError && <p className="text-sm text-accent">{serverError}</p>}
+            <button
+              type="button"
+              onClick={() => void pagarWompi()}
+              disabled={confirming}
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-medium text-bg transition hover:opacity-90 disabled:opacity-60"
+            >
+              <CreditCard className="h-4 w-4" aria-hidden />
+              {confirming ? "Redirigiendo…" : `Pagar ${formatCOP(total)} con tarjeta o PSE`}
+            </button>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setPay(null)}
+          className="w-full text-center text-sm text-muted transition-colors hover:text-primary"
+        >
+          ← Volver a mis datos
+        </button>
+      </div>
     );
   }
 
@@ -110,13 +230,20 @@ export function OrderForm() {
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex justify-between px-4 font-medium text-ink">
-            <span>Subtotal</span>
-            <span>{formatCOP(subtotal)}</span>
+          <div className="mt-3 space-y-1 px-4 text-sm">
+            <div className="flex justify-between text-muted">
+              <span>Subtotal</span>
+              <span>{formatCOP(subtotal)}</span>
+            </div>
+            <div className="flex justify-between text-muted">
+              <span>Envío nacional</span>
+              <span>{formatCOP(ENVIO_COP)}</span>
+            </div>
+            <div className="flex justify-between border-t border-primary/10 pt-1 font-medium text-ink">
+              <span>Total</span>
+              <span>{formatCOP(total)}</span>
+            </div>
           </div>
-          <p className="mt-2 px-4 text-xs text-muted">
-            El costo de envío se coordina por WhatsApp según tu ciudad.
-          </p>
         </div>
       </aside>
 
@@ -183,11 +310,9 @@ export function OrderForm() {
 
         <button
           type="submit"
-          disabled={isSubmitting}
           className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-medium text-bg transition hover:opacity-90 disabled:opacity-60"
         >
-          <MessageCircle className="h-4 w-4" aria-hidden />
-          {isSubmitting ? "Registrando…" : "Confirmar y coordinar por WhatsApp"}
+          Continuar al pago
         </button>
         <p className="text-center text-xs text-muted">
           Tus datos solo se usan para coordinar el envío. Sin spam.

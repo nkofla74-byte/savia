@@ -1,12 +1,15 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useReducedMotion } from "@/lib/motion/useReducedMotion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SectionImage } from "@/components/media/SectionImage";
+import { EASE } from "@/lib/motion/variants";
 
-// Cuando existan las fotos, definir las rutas (ej. "/secciones/historia-1.jpg").
-const SLIDE_A: string | undefined = undefined;
-const SLIDE_B: string | undefined = undefined;
+const SLIDES = [
+  { src: "/secciones/historia-1.jpg", alt: "Frasco de aceite de Savia con lavanda" },
+  { src: "/secciones/galeria-3.jpg", alt: "Frascos ámbar con flores y plantas" },
+  { src: "/secciones/historia-2.jpg", alt: "El ritual de cuidado Savia" },
+  { src: "/secciones/galeria-1.jpg", alt: "Aceites botánicos con manzanilla y romero" },
+];
 
 const QUOTE =
   "“Savia es el ritual diario que se permite quien entiende que el cuidado propio no es lujo, es inversión.”";
@@ -23,32 +26,56 @@ function Quote() {
 }
 
 export function BrandStory() {
-  const reduced = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const bOpacity = useTransform(scrollYProgress, [0.35, 0.65], [0, 1]);
+  const [index, setIndex] = useState(0);
 
-  if (reduced) {
-    return (
-      <section className="py-24">
-        <Quote />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          <SectionImage src={SLIDE_A} alt="El ritual Savia, paso uno" className="aspect-[4/5] w-full rounded-2xl" />
-          <SectionImage src={SLIDE_B} alt="El ritual Savia, paso dos" className="aspect-[4/5] w-full rounded-2xl" />
-        </div>
-      </section>
-    );
-  }
+  useEffect(() => {
+    const id = setInterval(() => setIndex((i) => (i + 1) % SLIDES.length), 4200);
+    return () => clearInterval(id);
+  }, []);
+
+  const slide = SLIDES[index] ?? SLIDES[0];
 
   return (
-    <section ref={ref} className="relative h-[180vh]">
-      <div className="sticky top-[8vh] flex min-h-[84vh] flex-col items-center justify-center gap-10 py-10">
-        <Quote />
-        <div className="relative aspect-[16/9] w-full max-w-2xl">
-          <SectionImage src={SLIDE_A} alt="El ritual Savia, paso uno" className="absolute inset-0 h-full w-full rounded-2xl" />
-          <motion.div style={{ opacity: bOpacity }} className="absolute inset-0">
-            <SectionImage src={SLIDE_B} alt="El ritual Savia, paso dos" className="h-full w-full rounded-2xl" />
+    <section className="py-24">
+      <Quote />
+      <div className="relative mx-auto mt-12 aspect-[16/10] w-full max-w-2xl overflow-hidden rounded-3xl border border-primary/10 bg-surface/40">
+        <AnimatePresence>
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: 80, scale: 1.06 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: -80, scale: 1.06 }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="absolute inset-0"
+          >
+            <motion.div
+              animate={{ scale: 1.08 }}
+              transition={{ duration: 4.2, ease: "linear" }}
+              className="h-full w-full"
+            >
+              <SectionImage
+                src={slide?.src}
+                alt={slide?.alt ?? ""}
+                sizes="(max-width: 768px) 100vw, 672px"
+                className="h-full w-full"
+              />
+            </motion.div>
           </motion.div>
+        </AnimatePresence>
+
+        <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center gap-2">
+          {SLIDES.map((s, i) => (
+            <button
+              key={s.src}
+              type="button"
+              onClick={() => setIndex(i)}
+              aria-label={`Ver imagen ${i + 1}`}
+              aria-current={i === index}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === index ? "w-6 bg-bg" : "w-1.5 bg-bg/50 hover:bg-bg/80"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

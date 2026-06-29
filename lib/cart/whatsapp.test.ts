@@ -24,6 +24,7 @@ describe("buildWhatsAppMessage", () => {
     expect(text).toContain("Medellín");
     expect(text).toContain("$49.700"); // 2*13900 + 21900
     expect(text).toContain("SAVIA-7X2K");
+    expect(text).toContain("Nequi");
   });
 
   it("builds a wa.me url with encoded text and the given number", () => {
