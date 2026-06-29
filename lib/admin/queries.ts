@@ -57,6 +57,14 @@ export async function getItemsDePedidos(pedidoIds: string[]): Promise<PedidoItem
   return (data as PedidoItemRow[] | null) ?? [];
 }
 
+export async function getPedido(id: string): Promise<{ pedido: PedidoRow; items: PedidoItemRow[] } | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data } = await supabase.from("pedidos").select("*").eq("id", id).maybeSingle();
+  if (!data) return null;
+  const { data: itemsData } = await supabase.from("pedido_items").select("*").eq("pedido_id", id);
+  return { pedido: data as PedidoRow, items: (itemsData as PedidoItemRow[] | null) ?? [] };
+}
+
 export async function getMensajes(opts: { soloNoLeidos?: boolean } = {}): Promise<MensajeRow[]> {
   const supabase = await createSupabaseServerClient();
   let query = supabase.from("mensajes").select("*").order("created_at", { ascending: false });
