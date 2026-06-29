@@ -13,6 +13,15 @@ export const ESTADO_LABEL: Record<EstadoPedido, string> = {
   cancelado: "Cancelado",
 };
 
+// Color del punto de estado (semántico, no token de marca) + emoji para el dashboard.
+export const ESTADO_UI: Record<EstadoPedido, { dot: string; emoji: string }> = {
+  nuevo: { dot: "bg-amber-500", emoji: "🟡" },
+  confirmado: { dot: "bg-green-500", emoji: "🟢" },
+  enviado: { dot: "bg-blue-500", emoji: "🚚" },
+  entregado: { dot: "bg-emerald-600", emoji: "✅" },
+  cancelado: { dot: "bg-rose-500", emoji: "⛔" },
+};
+
 export const ESTADOS_PAGO = ["pendiente", "aprobado", "rechazado", "error"] as const;
 export type EstadoPagoAdmin = (typeof ESTADOS_PAGO)[number];
 
