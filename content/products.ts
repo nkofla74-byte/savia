@@ -59,7 +59,7 @@ export const products: Product[] = [
     porQueFunciona: "Los lípidos del cacao son altamente emolientes y ayudan a nutrir la piel seca.",
     ingredientes: ["Manteca/aceite de cacao", "Aceite de almendra dulce", "Vitamina E"],
     modoDeUso: "Aplica sobre piel limpia, especialmente en zonas secas.",
-    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "cacao", imagen: "/products/cacaoaceite.png", destacado: false,
   },
   {
     slug: "frescor", nombre: "Frescor", linea: "Menta Refrescante",
@@ -107,7 +107,7 @@ export const products: Product[] = [
     porQueFunciona: "El café aporta un aroma estimulante; la base de aceites vegetales deja la piel suave.",
     ingredientes: ["Aceite vegetal", "Extracto de café", "Vitamina E"],
     modoDeUso: "Aplica unas gotas y masajea sobre la piel.",
-    advertencia: ADVERTENCIA, ilustracion: "cafe", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "cafe", imagen: "/products/cafeaceite.jpeg", destacado: false,
   },
   {
     slug: "chocolate", nombre: "Chocolate", linea: "Aceite solo · Envolvente",
@@ -116,7 +116,7 @@ export const products: Product[] = [
     porQueFunciona: "Los lípidos vegetales son emolientes y ayudan a nutrir la piel.",
     ingredientes: ["Aceite vegetal", "Aroma de cacao", "Vitamina E"],
     modoDeUso: "Aplica sobre piel limpia, especialmente en zonas secas.",
-    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "cacao", imagen: "/products/cacaoaceite.png", destacado: false,
   },
   {
     slug: "cacao-puro", nombre: "Cacao", linea: "Aceite solo · Nutritivo",
@@ -125,7 +125,7 @@ export const products: Product[] = [
     porQueFunciona: "Los lípidos del cacao son altamente emolientes y ayudan a nutrir la piel seca.",
     ingredientes: ["Aceite/manteca de cacao", "Aceite vegetal", "Vitamina E"],
     modoDeUso: "Aplica sobre piel limpia, masajeando hasta absorber.",
-    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "cacao", imagen: "/products/cacaoaceite.png", destacado: false,
   },
   {
     slug: "naranja", nombre: "Naranja", linea: "Aceite solo · Cítrico",
@@ -134,7 +134,7 @@ export const products: Product[] = [
     porQueFunciona: "El aroma cítrico aporta una sensación vital; la base ligera se absorbe bien.",
     ingredientes: ["Aceite vegetal", "Aceite esencial de naranja", "Vitamina E"],
     modoDeUso: "Masajea sobre la piel con movimientos suaves.",
-    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/naranjaaceite.png", destacado: false,
   },
   {
     slug: "menta", nombre: "Menta", linea: "Aceite solo · Refrescante",
@@ -143,7 +143,7 @@ export const products: Product[] = [
     porQueFunciona: "La menta aporta una sensación refrescante; la base se absorbe rápido.",
     ingredientes: ["Aceite vegetal", "Aceite esencial de menta", "Vitamina E"],
     modoDeUso: "Aplica en cuerpo o piernas para una sensación fresca.",
-    advertencia: ADVERTENCIA, ilustracion: "menta", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "menta", imagen: "/products/mentaaceite.png", destacado: false,
   },
   {
     slug: "almendras", nombre: "Almendras", linea: "Aceite solo · Base versátil",
@@ -152,7 +152,7 @@ export const products: Product[] = [
     porQueFunciona: "La almendra dulce es un aceite ligero que suaviza y nutre piel y cabello.",
     ingredientes: ["Aceite de almendra dulce", "Vitamina E"],
     modoDeUso: "Aplica en piel húmeda o en puntas del cabello.",
-    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/almendrasaceite.png", destacado: false,
   },
   {
     slug: "coco", nombre: "Coco", linea: "Aceite solo · Ligero",
@@ -161,7 +161,7 @@ export const products: Product[] = [
     porQueFunciona: "El coco fraccionado es ligero, no graso y deja la piel suave.",
     ingredientes: ["Aceite de coco fraccionado", "Vitamina E"],
     modoDeUso: "Aplica en cuerpo tras el baño o en el cabello.",
-    advertencia: ADVERTENCIA, ilustracion: "cacao", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "cacao", imagen: "/products/cocoaceite.png", destacado: false,
   },
   {
     slug: "uva", nombre: "Uva", linea: "Aceite solo · Facial ligero",
@@ -170,7 +170,7 @@ export const products: Product[] = [
     porQueFunciona: "La semilla de uva es un aceite ligero que ayuda a la sensación de suavidad de la piel.",
     ingredientes: ["Aceite de semilla de uva", "Vitamina E"],
     modoDeUso: "Aplica unas gotas en el rostro por la noche, sobre piel limpia.",
-    advertencia: ADVERTENCIA, ilustracion: "uva", destacado: false,
+    advertencia: ADVERTENCIA, ilustracion: "uva", imagen: "/products/uvaaceite.png", destacado: false,
   },
 ];
 
