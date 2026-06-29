@@ -23,6 +23,17 @@ export async function eliminarPedido(id: string): Promise<ActionResult> {
   return { ok: true };
 }
 
+export async function actualizarStock(slug: string, stock: number): Promise<ActionResult> {
+  if (!Number.isInteger(stock) || stock < 0) return { ok: false, error: "Stock inválido." };
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase
+    .from("inventario")
+    .upsert({ slug, stock, updated_at: new Date().toISOString() }, { onConflict: "slug" });
+  if (error) return { ok: false, error: "No se pudo actualizar el stock." };
+  revalidatePath("/admin/inventario");
+  return { ok: true };
+}
+
 export async function marcarMensajeLeido(id: string, leido: boolean): Promise<ActionResult> {
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.from("mensajes").update({ leido }).eq("id", id);
