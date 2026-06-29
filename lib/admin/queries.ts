@@ -65,6 +65,123 @@ export async function getPedido(id: string): Promise<{ pedido: PedidoRow; items:
   return { pedido: data as PedidoRow, items: (itemsData as PedidoItemRow[] | null) ?? [] };
 }
 
+export type Cliente = {
+  telefono: string;
+  nombre: string;
+  email: string | null;
+  pedidos: number;
+  totalComprado: number;
+  favorito: string | null;
+  ultimaCompra: string;
+};
+
+type PedidoMini = {
+  id: string;
+  nombre: string;
+  telefono: string;
+  email: string | null;
+  total_cop: number | null;
+  subtotal_cop: number;
+  estado_pago: string;
+  created_at: string;
+};
+
+async function cargarPedidosEItems() {
+  const supabase = await createSupabaseServerClient();
+  const [pedidosRes, itemsRes] = await Promise.all([
+    supabase.from("pedidos").select("id, nombre, telefono, email, total_cop, subtotal_cop, estado_pago, created_at"),
+    supabase.from("pedido_items").select("pedido_id, nombre, qty"),
+  ]);
+  const pedidos = (pedidosRes.data as PedidoMini[] | null) ?? [];
+  const items = (itemsRes.data as { pedido_id: string; nombre: string; qty: number }[] | null) ?? [];
+  return { pedidos, items };
+}
+
+const soloDigitos = (t: string) => t.replace(/\D/g, "");
+
+export async function getClientes(): Promise<Cliente[]> {
+  const { pedidos, items } = await cargarPedidosEItems();
+  const pedidoTelefono = new Map(pedidos.map((p) => [p.id, soloDigitos(p.telefono)]));
+
+  const acc = new Map<
+    string,
+    { nombre: string; email: string | null; pedidos: number; totalComprado: number; ultimaCompra: string; productos: Map<string, number> }
+  >();
+
+  for (const p of pedidos) {
+    const key = soloDigitos(p.telefono);
+    const c = acc.get(key) ?? { nombre: p.nombre, email: p.email, pedidos: 0, totalComprado: 0, ultimaCompra: p.created_at, productos: new Map() };
+    c.pedidos += 1;
+    if (p.estado_pago === "aprobado") c.totalComprado += p.total_cop ?? p.subtotal_cop;
+    if (p.created_at > c.ultimaCompra) {
+      c.ultimaCompra = p.created_at;
+      c.nombre = p.nombre;
+      c.email = p.email;
+    }
+    acc.set(key, c);
+  }
+
+  for (const it of items) {
+    const key = pedidoTelefono.get(it.pedido_id);
+    if (!key) continue;
+    const c = acc.get(key);
+    if (!c) continue;
+    c.productos.set(it.nombre, (c.productos.get(it.nombre) ?? 0) + it.qty);
+  }
+
+  return [...acc.entries()]
+    .map(([telefono, c]) => {
+      const favorito = [...c.productos.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+      return { telefono, nombre: c.nombre, email: c.email, pedidos: c.pedidos, totalComprado: c.totalComprado, favorito, ultimaCompra: c.ultimaCompra };
+    })
+    .sort((a, b) => b.totalComprado - a.totalComprado);
+}
+
+export type Reportes = {
+  ventas30: number;
+  pedidos30: number;
+  topProductos: { nombre: string; qty: number }[];
+  clientesNuevos30: number;
+};
+
+export async function getReportes(): Promise<Reportes> {
+  const { pedidos, items } = await cargarPedidosEItems();
+  const desde = new Date(Date.now() - 30 * 86_400_000).toISOString();
+
+  let ventas30 = 0;
+  let pedidos30 = 0;
+  const pedidosRecientes = new Set<string>();
+  for (const p of pedidos) {
+    if (p.created_at >= desde) {
+      pedidos30 += 1;
+      pedidosRecientes.add(p.id);
+      if (p.estado_pago === "aprobado") ventas30 += p.total_cop ?? p.subtotal_cop;
+    }
+  }
+
+  const qtyPorProducto = new Map<string, number>();
+  for (const it of items) {
+    if (!pedidosRecientes.has(it.pedido_id)) continue;
+    qtyPorProducto.set(it.nombre, (qtyPorProducto.get(it.nombre) ?? 0) + it.qty);
+  }
+  const topProductos = [...qtyPorProducto.entries()]
+    .map(([nombre, qty]) => ({ nombre, qty }))
+    .sort((a, b) => b.qty - a.qty)
+    .slice(0, 5);
+
+  // Clientes nuevos: cuyo primer pedido cayó en los últimos 30 días.
+  const primerPedido = new Map<string, string>();
+  for (const p of pedidos) {
+    const key = soloDigitos(p.telefono);
+    const actual = primerPedido.get(key);
+    if (!actual || p.created_at < actual) primerPedido.set(key, p.created_at);
+  }
+  let clientesNuevos30 = 0;
+  for (const fecha of primerPedido.values()) if (fecha >= desde) clientesNuevos30 += 1;
+
+  return { ventas30, pedidos30, topProductos, clientesNuevos30 };
+}
+
 export async function getMensajes(opts: { soloNoLeidos?: boolean } = {}): Promise<MensajeRow[]> {
   const supabase = await createSupabaseServerClient();
   let query = supabase.from("mensajes").select("*").order("created_at", { ascending: false });

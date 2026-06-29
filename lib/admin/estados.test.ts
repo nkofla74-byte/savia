@@ -1,9 +1,25 @@
 import { describe, expect, it } from "vitest";
-import { ESTADOS, esEstadoValido, ESTADO_LABEL } from "./estados";
+import { ESTADOS, FLUJO, esEstadoValido, ESTADO_LABEL, ESTADO_UI } from "./estados";
 
 describe("estados de pedido", () => {
-  it("tiene los 5 estados en orden", () => {
-    expect(ESTADOS).toEqual(["nuevo", "confirmado", "enviado", "entregado", "cancelado"]);
+  it("tiene el flujo completo en orden", () => {
+    expect(ESTADOS).toEqual([
+      "nuevo",
+      "confirmado",
+      "preparando",
+      "empacado",
+      "enviado",
+      "entregado",
+      "finalizado",
+      "cancelado",
+    ]);
+  });
+  it("el flujo lineal excluye cancelado", () => {
+    expect(FLUJO).not.toContain("cancelado");
+    expect(FLUJO[0]).toBe("nuevo");
+  });
+  it("cada estado tiene color en ESTADO_UI", () => {
+    for (const e of ESTADOS) expect(ESTADO_UI[e].dot.length).toBeGreaterThan(0);
   });
   it("valida estados conocidos y rechaza desconocidos", () => {
     expect(esEstadoValido("enviado")).toBe(true);
