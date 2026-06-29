@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut } from "lucide-react";
+import { LogOut, Home } from "lucide-react";
 import { getAdminUser } from "@/lib/admin/auth";
 import { signOut } from "@/lib/admin/actions";
 import { AdminNav } from "@/components/admin/AdminNav";
@@ -21,20 +21,33 @@ export default async function PanelLayout({ children }: { children: React.ReactN
 
             <AdminNav />
 
-            <form action={signOut} className="mt-auto hidden px-5 pb-2 lg:block">
-              <button
-                type="submit"
-                className="flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-sm text-ink/60 transition-colors hover:bg-rose-500/10 hover:text-rose-600"
+            <div className="mt-auto hidden flex-col gap-1 px-5 pb-2 lg:flex">
+              <Link
+                href="/"
+                className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm text-ink/60 transition-colors hover:bg-primary/10 hover:text-primary"
               >
-                <LogOut className="h-4 w-4" aria-hidden />
-                Cerrar sesión
-              </button>
-            </form>
+                <Home className="h-4 w-4" aria-hidden />
+                Volver al sitio
+              </Link>
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className="flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-sm text-ink/60 transition-colors hover:bg-rose-500/10 hover:text-rose-600"
+                >
+                  <LogOut className="h-4 w-4" aria-hidden />
+                  Cerrar sesión
+                </button>
+              </form>
+            </div>
           </div>
         </aside>
 
         <main className="min-w-0 flex-1 px-5 py-8 lg:px-10 lg:py-10">
-          <div className="mb-6 flex justify-end lg:hidden">
+          <div className="mb-6 flex justify-end gap-4 lg:hidden">
+            <Link href="/" className="flex items-center gap-2 text-sm text-ink/60 hover:text-primary">
+              <Home className="h-4 w-4" aria-hidden />
+              Sitio
+            </Link>
             <form action={signOut}>
               <button type="submit" className="flex items-center gap-2 text-sm text-ink/60 hover:text-rose-600">
                 <LogOut className="h-4 w-4" aria-hidden />
