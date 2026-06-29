@@ -8,7 +8,8 @@ export const dynamic = "force-dynamic";
 
 export default async function ProductosPage() {
   const inv = await getInventario();
-  const stockDe = new Map(inv.map((i) => [i.slug, i.stock]));
+  const stockDe = new Map<string, number>();
+  for (const i of inv) stockDe.set(i.slug, (stockDe.get(i.slug) ?? 0) + i.stock);
 
   return (
     <section>

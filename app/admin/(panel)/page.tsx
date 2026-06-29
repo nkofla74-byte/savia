@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShoppingBag, Wallet, Clock, MessageSquare } from "lucide-react";
+import { ShoppingBag, Wallet, CalendarDays, HandCoins, Truck, Boxes, Plus } from "lucide-react";
 import { getDashboard } from "@/lib/admin/queries";
 import { ESTADOS, ESTADO_LABEL, ESTADO_UI } from "@/lib/admin/estados";
 import { formatCOP } from "@/lib/utils";
@@ -19,19 +19,31 @@ export default async function AdminDashboardPage() {
   const d = await getDashboard();
 
   const cards = [
+    { label: "Ventas de hoy", value: formatCOP(d.ventasHoy), Icon: Wallet, href: "/admin/ventas" },
+    { label: "Ventas del mes", value: formatCOP(d.ventasMes), Icon: CalendarDays, href: "/admin/ventas" },
+    { label: "Por cobrar", value: formatCOP(d.porCobrar), Icon: HandCoins, href: "/admin/clientes" },
+    { label: "Por entregar", value: String(d.pendientesEntregar), Icon: Truck, href: "/admin/pedidos" },
     { label: "Pedidos de hoy", value: String(d.pedidosHoy), Icon: ShoppingBag, href: "/admin/pedidos" },
-    { label: "Ventas de hoy", value: formatCOP(d.ventasHoy), Icon: Wallet, href: "/admin/pedidos" },
-    { label: "Pagos por verificar", value: String(d.pendientesPago), Icon: Clock, href: "/admin/pedidos" },
-    { label: "Mensajes sin leer", value: String(d.mensajesNoLeidos), Icon: MessageSquare, href: "/admin/mensajes?noleidos=1" },
+    { label: "Stock bajo", value: String(d.stockBajo), Icon: Boxes, href: "/admin/inventario" },
   ];
 
   return (
     <section>
-      <h1 className="font-display text-3xl font-bold text-primary">{saludo()}, Savia 🌿</h1>
-      <p className="mt-1 text-ink/60">Esto es lo que está pasando hoy.</p>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-primary">{saludo()}, Savia 🌿</h1>
+          <p className="mt-1 text-ink/60">Esto es lo que está pasando hoy.</p>
+        </div>
+        <Link
+          href="/admin/ventas/nueva"
+          className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 font-medium text-bg transition hover:opacity-90"
+        >
+          <Plus className="h-5 w-5" aria-hidden /> Nueva venta
+        </Link>
+      </div>
 
-      {/* Resumen de hoy */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Resumen */}
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map(({ label, value, Icon, href }) => (
           <Link
             key={label}

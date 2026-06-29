@@ -36,7 +36,7 @@ const PRES_3: { ml: number; precioCOP: number }[] = [
 export const products: Product[] = [
   {
     slug: "calma", nombre: "Calma", linea: "Relajante · Lavanda",
-    usos: ["cuerpo", "masaje"], tamanoMl: 100, precioCOP: 13900,
+    usos: ["cuerpo", "masaje"], tamanoMl: 100, precioCOP: 13900, presentaciones: PRES_3,
     descripcion: "Un ritual de calma hecho aceite. La lavanda, valorada por su aroma sereno, se mezcla con almendra dulce y coco fraccionado —aceites ricos en ácidos grasos que envuelven la piel— para un masaje nocturno que la deja suave, nutrida y lista para descansar.",
     porQueFunciona: "La lavanda aporta un aroma asociado a la sensación de calma; la base de aceites vegetales suaviza y nutre la piel.",
     ingredientes: ["Aceite de almendra dulce", "Aceite de coco fraccionado", "Aceite esencial de lavanda", "Vitamina E"],
@@ -45,7 +45,7 @@ export const products: Product[] = [
   },
   {
     slug: "despierta", nombre: "Despierta", linea: "Café Energizante",
-    usos: ["cuerpo", "masaje"], tamanoMl: 100, precioCOP: 13900,
+    usos: ["cuerpo", "masaje"], tamanoMl: 100, precioCOP: 13900, presentaciones: PRES_3,
     descripcion: "El despertar de tu piel. Extracto de café y un toque cítrico crean un aroma que activa los sentidos, sobre una base ligera que se desliza fácil en el masaje y deja las piernas suaves y con sensación de ligereza.",
     porQueFunciona: "La cafeína se asocia a la sensación de ligereza; la fórmula deja la piel suave con un aroma estimulante.",
     ingredientes: ["Aceite de girasol", "Extracto de café", "Aceite esencial cítrico", "Vitamina E"],
@@ -54,7 +54,7 @@ export const products: Product[] = [
   },
   {
     slug: "cacao", nombre: "Cacao", linea: "Nutritivo",
-    usos: ["cuerpo"], tamanoMl: 100, precioCOP: 13900,
+    usos: ["cuerpo"], tamanoMl: 100, precioCOP: 13900, presentaciones: PRES_3,
     descripcion: "Nutrición golosa para piel sedienta. Los lípidos del cacao son altamente emolientes y forman una capa que ayuda a retener la hidratación, ideal para zonas secas. Aroma envolvente que convierte el cuidado en un antojo.",
     porQueFunciona: "Los lípidos del cacao son altamente emolientes y ayudan a nutrir la piel seca.",
     ingredientes: ["Manteca/aceite de cacao", "Aceite de almendra dulce", "Vitamina E"],
@@ -63,7 +63,7 @@ export const products: Product[] = [
   },
   {
     slug: "frescor", nombre: "Frescor", linea: "Menta Refrescante",
-    usos: ["cuerpo"], tamanoMl: 100, precioCOP: 13900,
+    usos: ["cuerpo"], tamanoMl: 100, precioCOP: 13900, presentaciones: PRES_3,
     descripcion: "Frescura que se siente al instante. El aceite esencial de menta aporta una sensación refrescante inconfundible mientras la base de girasol, ligera y de rápida absorción, deja la piel suave y sin rastro graso.",
     porQueFunciona: "La menta aporta una sensación refrescante; la base ligera se absorbe rápido sin sensación grasa.",
     ingredientes: ["Aceite de girasol", "Aceite esencial de menta", "Vitamina E"],
@@ -72,7 +72,7 @@ export const products: Product[] = [
   },
   {
     slug: "raiz", nombre: "Raíz", linea: "Capilar Acondicionador",
-    usos: ["cabello"], tamanoMl: 100, precioCOP: 13900,
+    usos: ["cabello"], tamanoMl: 100, precioCOP: 13900, presentaciones: PRES_3,
     descripcion: "Brillo de raíz a puntas. Argán y coco, ricos en ácidos grasos, ayudan a sellar la cutícula del cabello para domar el frizz y devolver suavidad y luz. Unas gotas bastan.",
     porQueFunciona: "Los aceites vegetales ayudan a sellar la cutícula del cabello, aportando brillo y suavidad.",
     ingredientes: ["Aceite de coco", "Aceite de argán", "Aceite esencial herbal"],
@@ -81,7 +81,7 @@ export const products: Product[] = [
   },
   {
     slug: "luz", nombre: "Luz", linea: "Sérum Facial",
-    usos: ["rostro"], tamanoMl: 30, precioCOP: 21900,
+    usos: ["rostro"], tamanoMl: 30, precioCOP: 21900, presentaciones: PRES_3,
     descripcion: "Tu sérum de noche. Argán y semilla de uva, ricos en antioxidantes y vitamina E, aportan luminosidad y mejoran la apariencia de la elasticidad mientras descansas. Sin fragancia, para pieles que buscan lo esencial.",
     porQueFunciona: "El argán y la semilla de uva ayudan a mejorar la apariencia de la piel y a reforzar su sensación de suavidad.",
     ingredientes: ["Aceite de argán", "Aceite de semilla de uva", "Vitamina E"],
@@ -90,7 +90,7 @@ export const products: Product[] = [
   },
   {
     slug: "rocio-de-rosas", nombre: "Rocío de Rosas", linea: "Tónico facial",
-    usos: ["rostro"], tamanoMl: 200, precioCOP: 13900,
+    usos: ["rostro"], tamanoMl: 200, precioCOP: 13900, presentaciones: PRES_3,
     descripcion: "Un soplo de frescura para tu rostro. Agua de rosas pura que refresca, reconforta y prepara la piel antes de tu rutina. Producto fresco, hecho por pedido y conservado en frío para que llegue vivo.",
     porQueFunciona: "El agua de rosas aporta una sensación refrescante y de confort a la piel del rostro.",
     ingredientes: ["Agua de rosas", "Conservante cosmético apto"],

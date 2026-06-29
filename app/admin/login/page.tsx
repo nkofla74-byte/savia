@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [verPassword, setVerPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -39,15 +41,26 @@ export default function AdminLoginPage() {
           placeholder="tu@correo.com"
           className="w-full rounded-xl border border-primary/20 bg-surface px-4 py-3 text-ink outline-none focus:border-primary"
         />
-        <input
-          type="password"
-          required
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Contraseña"
-          className="w-full rounded-xl border border-primary/20 bg-surface px-4 py-3 text-ink outline-none focus:border-primary"
-        />
+        <div className="relative">
+          <input
+            type={verPassword ? "text" : "password"}
+            required
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Contraseña"
+            className="w-full rounded-xl border border-primary/20 bg-surface px-4 py-3 pr-12 text-ink outline-none focus:border-primary"
+          />
+          <button
+            type="button"
+            onClick={() => setVerPassword((v) => !v)}
+            aria-label={verPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            aria-pressed={verPassword}
+            className="absolute inset-y-0 right-0 grid w-12 place-items-center text-muted transition hover:text-primary"
+          >
+            {verPassword ? <EyeOff className="h-5 w-5" aria-hidden /> : <Eye className="h-5 w-5" aria-hidden />}
+          </button>
+        </div>
         {error && <p className="text-sm text-accent">{error}</p>}
         <button
           type="submit"

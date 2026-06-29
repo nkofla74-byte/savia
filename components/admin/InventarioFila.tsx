@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Minus, Plus, Check, AlertTriangle } from "lucide-react";
 import { actualizarStock } from "@/lib/admin/actions";
 
-export function InventarioFila({ slug, nombre, linea, stock }: { slug: string; nombre: string; linea: string; stock: number }) {
+export function InventarioFila({ slug, ml, nombre, linea, stock }: { slug: string; ml: number; nombre: string; linea: string; stock: number }) {
   const [valor, setValor] = useState(stock);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -11,15 +11,12 @@ export function InventarioFila({ slug, nombre, linea, stock }: { slug: string; n
   const bajo = valor < 5;
 
   const guardar = async (nuevo: number) => {
-    if (nuevo < 0 || nuevo === stock) {
-      setValor(Math.max(0, nuevo));
-      return;
-    }
+    if (nuevo === stock) return;
     setBusy(true);
     setError(null);
     setGuardado(false);
     setValor(nuevo);
-    const res = await actualizarStock(slug, nuevo);
+    const res = await actualizarStock(slug, ml, nuevo);
     setBusy(false);
     if (!res.ok) {
       setValor(stock);
@@ -34,7 +31,9 @@ export function InventarioFila({ slug, nombre, linea, stock }: { slug: string; n
     <div className="rounded-2xl border border-primary/10 bg-surface/50 p-5">
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
-          <p className="font-medium text-ink">{nombre}</p>
+          <p className="font-medium text-ink">
+            {nombre} <span className="text-sm font-normal text-accent">· {ml} ml</span>
+          </p>
           <p className="text-sm text-muted">{linea}</p>
         </div>
         <div className="flex items-center gap-2">

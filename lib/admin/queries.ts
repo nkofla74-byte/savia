@@ -58,13 +58,28 @@ export async function getItemsDePedidos(pedidoIds: string[]): Promise<PedidoItem
   return (data as PedidoItemRow[] | null) ?? [];
 }
 
-export type InventarioItem = { slug: string; nombre: string; linea: string; stock: number };
+export type InventarioItem = { slug: string; ml: number; nombre: string; linea: string; stock: number };
+
+/** Presentaciones (ml) de un producto: las explícitas o su tamaño único. */
+export function presentacionesDe(p: { tamanoMl: number; presentaciones?: { ml: number }[] }): number[] {
+  return p.presentaciones ? p.presentaciones.map((x) => x.ml) : [p.tamanoMl];
+}
 
 export async function getInventario(): Promise<InventarioItem[]> {
   const supabase = await createSupabaseServerClient();
-  const { data } = await supabase.from("inventario").select("slug, stock");
-  const stockMap = new Map(((data as { slug: string; stock: number }[] | null) ?? []).map((r) => [r.slug, r.stock]));
-  return products.map((p) => ({ slug: p.slug, nombre: p.nombre, linea: p.linea, stock: stockMap.get(p.slug) ?? 0 }));
+  const { data } = await supabase.from("inventario").select("slug, ml, stock");
+  const stockMap = new Map(
+    ((data as { slug: string; ml: number; stock: number }[] | null) ?? []).map((r) => [`${r.slug}:${r.ml}`, r.stock]),
+  );
+  return products.flatMap((p) =>
+    presentacionesDe(p).map((ml) => ({
+      slug: p.slug,
+      ml,
+      nombre: p.nombre,
+      linea: p.linea,
+      stock: stockMap.get(`${p.slug}:${ml}`) ?? 0,
+    })),
+  );
 }
 
 export async function getPedido(id: string): Promise<{ pedido: PedidoRow; items: PedidoItemRow[] } | null> {
@@ -203,45 +218,84 @@ export async function getMensajes(opts: { soloNoLeidos?: boolean } = {}): Promis
 export type Dashboard = {
   pedidosHoy: number;
   ventasHoy: number;
+  ventasMes: number;
+  porCobrar: number;
+  pendientesEntregar: number;
   pendientesPago: number;
+  stockBajo: number;
   mensajesNoLeidos: number;
   totalPedidos: number;
   porEstado: Record<EstadoPedido, number>;
 };
 
+/** Un pedido cuenta como venta real si es POS, o si es web con pago aprobado. */
+function esVenta(estadoPago: string, origen: string): boolean {
+  return origen === "pos" || estadoPago === "aprobado";
+}
+
+/** Estados que ya no esperan entrega. */
+const ESTADOS_CERRADOS = new Set(["entregado", "finalizado", "cancelado"]);
+
 export async function getDashboard(): Promise<Dashboard> {
   const supabase = await createSupabaseServerClient();
-  const [pedidosRes, mensajesRes] = await Promise.all([
-    supabase.from("pedidos").select("estado, estado_pago, total_cop, subtotal_cop, created_at"),
+  const [pedidosRes, abonosRes, invRes, mensajesRes] = await Promise.all([
+    supabase.from("pedidos").select("id, estado, estado_pago, origen, total_cop, subtotal_cop, created_at"),
+    supabase.from("abonos").select("pedido_id, monto_cop"),
+    supabase.from("inventario").select("stock"),
     supabase.from("mensajes").select("id", { count: "exact", head: true }).eq("leido", false),
   ]);
 
   const rows = (pedidosRes.data as
-    | { estado: string; estado_pago: string; total_cop: number | null; subtotal_cop: number | null; created_at: string }[]
+    | { id: string; estado: string; estado_pago: string; origen: string; total_cop: number | null; subtotal_cop: number | null; created_at: string }[]
     | null) ?? [];
+  const abonos = (abonosRes.data as { pedido_id: string; monto_cop: number }[] | null) ?? [];
+  const stocks = (invRes.data as { stock: number }[] | null) ?? [];
 
-  const hoy = new Date().toLocaleDateString("en-CA", { timeZone: "America/Bogota" });
-  const esHoy = (iso: string) =>
-    new Date(iso).toLocaleDateString("en-CA", { timeZone: "America/Bogota" }) === hoy;
+  const abonadoPorPedido = new Map<string, number>();
+  for (const a of abonos) abonadoPorPedido.set(a.pedido_id, (abonadoPorPedido.get(a.pedido_id) ?? 0) + a.monto_cop);
+
+  const ahora = new Date();
+  const hoy = ahora.toLocaleDateString("en-CA", { timeZone: "America/Bogota" });
+  const mes = hoy.slice(0, 7); // YYYY-MM
+  const bogotaFecha = (iso: string) => new Date(iso).toLocaleDateString("en-CA", { timeZone: "America/Bogota" });
 
   const porEstado = Object.fromEntries(ESTADOS.map((e) => [e, 0])) as Record<EstadoPedido, number>;
   let pedidosHoy = 0;
   let ventasHoy = 0;
+  let ventasMes = 0;
+  let porCobrar = 0;
+  let pendientesEntregar = 0;
   let pendientesPago = 0;
 
   for (const r of rows) {
     if (r.estado in porEstado) porEstado[r.estado as EstadoPedido] += 1;
     if (r.estado_pago === "pendiente") pendientesPago += 1;
-    if (esHoy(r.created_at)) {
-      pedidosHoy += 1;
-      if (r.estado_pago === "aprobado") ventasHoy += r.total_cop ?? r.subtotal_cop ?? 0;
+    if (!ESTADOS_CERRADOS.has(r.estado)) pendientesEntregar += 1;
+
+    const total = r.total_cop ?? r.subtotal_cop ?? 0;
+    const venta = esVenta(r.estado_pago, r.origen);
+
+    if (r.origen === "pos") {
+      const saldo = total - (abonadoPorPedido.get(r.id) ?? 0);
+      if (saldo > 0) porCobrar += saldo;
     }
+
+    if (venta) {
+      const fecha = bogotaFecha(r.created_at);
+      if (fecha === hoy) ventasHoy += total;
+      if (fecha.slice(0, 7) === mes) ventasMes += total;
+    }
+    if (bogotaFecha(r.created_at) === hoy) pedidosHoy += 1;
   }
 
   return {
     pedidosHoy,
     ventasHoy,
+    ventasMes,
+    porCobrar,
+    pendientesEntregar,
     pendientesPago,
+    stockBajo: stocks.filter((s) => s.stock < 5).length,
     mensajesNoLeidos: mensajesRes.count ?? 0,
     totalPedidos: rows.length,
     porEstado,
