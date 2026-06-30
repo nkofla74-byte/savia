@@ -25,7 +25,7 @@ describe("crearLinkPago", () => {
   it("envía COP sin convertir a centavos, métodos y auth correctos", async () => {
     const fetchFn = vi.fn().mockResolvedValue(okResponse({ url: "u", payment_link: "LNK_1" }));
     await crearLinkPago(base, fetchFn as unknown as typeof fetch);
-    const [endpoint, init] = fetchFn.mock.calls[0];
+    const [endpoint, init] = fetchFn.mock.calls[0]!;
     expect(endpoint).toBe("https://integrations.api.bold.co/online/link/v1");
     const sent = JSON.parse((init as RequestInit).body as string);
     expect(sent.amount.total_amount).toBe(49000);
