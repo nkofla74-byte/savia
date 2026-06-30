@@ -36,7 +36,7 @@ describe("crearLinkPago", () => {
   });
 
   it("devuelve error cuando Bold responde con error http", async () => {
-    const fetchFn = vi.fn().mockResolvedValue({ ok: false, json: async () => ({}) } as Response);
+    const fetchFn = vi.fn().mockResolvedValue({ ok: false, status: 403, text: async () => "Forbidden", json: async () => ({}) } as unknown as Response);
     const res = await crearLinkPago(base, fetchFn as unknown as typeof fetch);
     expect(res.ok).toBe(false);
   });

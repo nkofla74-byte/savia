@@ -45,6 +45,10 @@ export async function crearLinkPago(
   }
 
   if (!res.ok) {
+    // Logueamos el cuerpo real de Bold para diagnosticar (p. ej. 403 por
+    // callback_url no https). No se expone al cliente.
+    const detalle = await res.text().catch(() => "");
+    console.error(`[bold] link de pago rechazado (${res.status}): ${detalle}`);
     return { ok: false, error: "La pasarela de pago rechazó la solicitud." };
   }
 
