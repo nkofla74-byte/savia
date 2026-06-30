@@ -16,9 +16,10 @@ export type PedidoRow = {
   subtotal_cop: number;
   envio_cop: number;
   total_cop: number | null;
-  metodo_pago: "manual" | "wompi";
+  metodo_pago: "manual" | "wompi" | "bold";
   estado_pago: "pendiente" | "aprobado" | "rechazado" | "error";
   wompi_transaction_id: string | null;
+  bold_payment_id: string | null;
   estado: EstadoPedido;
 };
 

@@ -58,7 +58,8 @@ export const ESTADO_PAGO_LABEL: Record<EstadoPagoAdmin, string> = {
   error: "Error",
 };
 
-export const METODO_LABEL: Record<"manual" | "wompi", string> = {
+export const METODO_LABEL: Record<"manual" | "wompi" | "bold", string> = {
   manual: "Nequi",
   wompi: "Wompi",
+  bold: "Bold",
 };

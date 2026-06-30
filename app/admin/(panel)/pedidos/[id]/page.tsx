@@ -124,6 +124,9 @@ export default async function PedidoDetallePage({ params }: { params: Promise<{ 
             <dl className="space-y-3 text-sm">
               <div className="flex justify-between"><dt className="text-muted">Método</dt><dd className="text-ink">{METODO_LABEL[pedido.metodo_pago]}</dd></div>
               <div className="flex justify-between"><dt className="text-muted">Estado</dt><dd className="text-ink">{ESTADO_PAGO_LABEL[pedido.estado_pago]}</dd></div>
+              {pedido.bold_payment_id && (
+                <div className="flex justify-between gap-3"><dt className="text-muted">Bold</dt><dd className="truncate font-mono text-xs text-ink/70">{pedido.bold_payment_id}</dd></div>
+              )}
               {pedido.wompi_transaction_id && (
                 <div className="flex justify-between gap-3"><dt className="text-muted">Wompi</dt><dd className="truncate font-mono text-xs text-ink/70">{pedido.wompi_transaction_id}</dd></div>
               )}

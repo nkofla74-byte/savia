@@ -71,7 +71,7 @@ export default async function ResultadoPage({
           <>
             <p className="mt-4 font-display text-2xl text-accent">El pago no se completó</p>
             <p className="mt-2 text-ink/80">
-              No te preocupes: puedes intentarlo de nuevo o pagar por Nequi.
+              No te preocupes: puedes intentarlo de nuevo.
             </p>
           </>
         )}
